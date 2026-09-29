@@ -66,19 +66,9 @@ if decison == "Yes"or"yes":
             print("You didn't pick a class that was avaliable, please try again.")
         #give the user an amount of gold between 10-40 pieces and set coin_Purse variable
         player_Purse = coin
+        print("You have:",player_Purse,"amount of gold coins!")
         #Show small shop with weapons and items with pricing
-
-
-
         
-
- 
- 
-
-  
-
- 
-
  #ask user what and if they want to buy anything, 1 weapon, 1 armor, up to 2 potions. 
 
  #Input what they chose for variables player_Weapon, player_Armor, potion_slot1, potion_slot2
