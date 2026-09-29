@@ -76,7 +76,8 @@ if decison == "Yes":
         player_Name = input("Please enter name here: ")
          #Provide a list of classes, each class has a different set of stats and abilities
          #Ask the user which class they want for the variable player_Class and player_c
-        player_Class = input("Please pick a class: Barbarian, Cleric, Fighter(Use upper case for the classes please): ")
+        
+        player_Class = input("Please pick a class: Barbarian, Cleric, Fighter (Please capatilize the classes name): ")
         player_c = player_Class
         if player_c == "Barbarian":
             player_c = 0
@@ -89,10 +90,12 @@ if decison == "Yes":
             stats = fighter
         else:
             print("I think you spelled the class wrong, or didn't capitalize, please start from the top!")
+           
 
         print(player_Name,"chose the", player_Class, " with these stats: ",(Classes[player_c]))
 
         # based on class determine coin amount. Use if statements 
+        
         if stats == barbarian:
             coin = float(15)
         elif stats == cleric:
@@ -101,10 +104,13 @@ if decison == "Yes":
             coin = float(25)
         else:
             print("You didn't pick a class that was avaliable, please try again.")
+                
         #give the user an amount of gold between 10-40 pieces and set coin_Purse variable
         player_Purse = coin
+
         print("You have:",player_Purse,"of gold coins!")
         #Show small shop with weapons and items with pricing
+    
         print("-"*3,"Dungeon Shop, get your gear!","-"*3)
         print(f'{"Items":<30}{"Prices":<30}')
         print(f"{(weapons[0]):<30}{(weapon_prices[0])} gold")
@@ -119,7 +125,31 @@ if decison == "Yes":
         print(f"{(potions[3]):<30}{(potion_prices[3])} gold")
         print("-"*37)
         print("Come purchase something from the store.")
-      
+        def weapon():
+            print("Please enter a weapon you want to buy: ")
+            Item1 = input("")
+            if Item1 == "Sword":
+                Item1 = 0
+                coin = ((weapon_prices[Item1])-coin)
+                print("You have",coin,"left in your coinpurse.")
+            elif Item1 == "Mace":
+                Item1 = 1
+                coin = ((weapon_prices[Item1])-coin)
+                print("You have",coin,"left in your coinpurse.")
+            elif Item1 == "Staff":
+                Item1 = 2
+                coin = ((weapon_prices[Item1])-coin)
+                print("You have",coin,"left in your coinpurse.")
+            else:
+                print("No weapon bought")
+                print("Would you like to go back and buy something from the store?")
+                answer = input()
+                if answer == "Yes":
+                   weapon()
+                else:
+                    print("If you're sure, it'll make the dungeon impossible. Onto armor then!")
+        weapon()
+
  #ask user what and if they want to buy anything, 1 weapon, 1 armor, up to 2 potions. 
 
  #Input what they chose for variables player_Weapon, player_Armor, potion_slot1, potion_slot2
@@ -131,8 +161,7 @@ if decison == "Yes":
         decison = input("Would you like to go back and restart? Yes or No? ")
         if decison == "Yes":
             decison = 1
-        else:
-            
-            print("lets head into the dungeon")
+        else:    
+            print("Lets head into the dungeon")
 else:
     print("Have fun elsewhere!")
