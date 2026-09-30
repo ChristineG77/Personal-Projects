@@ -104,13 +104,12 @@ if decison == "Yes":
             coin = float(25)
         else:
             print("You didn't pick a class that was avaliable, please try again.")
-                
-        #give the user an amount of gold between 10-40 pieces and set coin_Purse variable
+        
         player_Purse = coin
-
         print("You have:",player_Purse,"of gold coins!")
         #Show small shop with weapons and items with pricing
-    
+        print("Shop Owner: 'Welcome",player_Name,"! Please come purchase something from my store to aid you on your adventure!'")
+        print()
         print("-"*3,"Dungeon Shop, get your gear!","-"*3)
         print(f'{"Items":<30}{"Prices":<30}')
         print(f"{(weapons[0]):<30}{(weapon_prices[0])} gold")
@@ -124,31 +123,44 @@ if decison == "Yes":
         print(f"{(potions[2]):<30}{(potion_prices[2])} gold")
         print(f"{(potions[3]):<30}{(potion_prices[3])} gold")
         print("-"*37)
-        print("Come purchase something from the store.")
-        def weapon():
-            print("Please enter a weapon you want to buy: ")
+        
+        
+        weapon_select = bool
+        weapon_select = False
+        #give the user an amount of gold between 10-40 pieces and set coin_Purse variable
+        while weapon_select == False:    
+            print("Store Owner:'Please tell me the weapon you want to buy': ")
             Item1 = input("")
             if Item1 == "Sword":
                 Item1 = 0
-                coin = ((weapon_prices[Item1])-coin)
+                coin = (coin-(weapon_prices[Item1]))
                 print("You have",coin,"left in your coinpurse.")
+                weapon_name="Sword"
+                weapon_slot = sword
+                weapon_select = True
             elif Item1 == "Mace":
                 Item1 = 1
-                coin = ((weapon_prices[Item1])-coin)
+                coin = (coin-(weapon_prices[Item1]))
                 print("You have",coin,"left in your coinpurse.")
+                weapon_name="Mace"
+                weapon_slot = mace
+                weapon_select = True
             elif Item1 == "Staff":
                 Item1 = 2
-                coin = ((weapon_prices[Item1])-coin)
+                coin = (coin-(weapon_prices[Item1]))
                 print("You have",coin,"left in your coinpurse.")
+                weapon_name="Staff"
+                weapon_slot = staff
+                weapon_select = True
             else:
-                print("No weapon bought")
-                print("Would you like to go back and buy something from the store?")
+                print("Store Owner:'You didn't buy a weapon. Are you sure you would like to continue without one?'")
                 answer = input()
                 if answer == "Yes":
-                   weapon()
+                   print("Store Owner:'If you're sure, it'll make the dungeon impossible. Onto armor then!'")
+                   weapon_select = True
                 else:
-                    print("If you're sure, it'll make the dungeon impossible. Onto armor then!")
-        weapon()
+                    weapon_select = False
+        
 
  #ask user what and if they want to buy anything, 1 weapon, 1 armor, up to 2 potions. 
 
