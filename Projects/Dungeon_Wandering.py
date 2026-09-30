@@ -1,10 +1,9 @@
 #Write a short dungeon crawler with a boss at the end
 
 #Establish classes and their stats
-
-barbarian={'ATK':3,'DEF':4,'HP':40,'MG':0}
-cleric={'ATK':1,'DEF':2,'HP':20,'MG':10}
-fighter={'ATK':2,'DEF':3,'HP':30,'MG':5}
+barbarian={'ATK':3,'DEF':4,'HP':40,'MP':0}
+cleric={'ATK':1,'DEF':2,'HP':20,'MP':10}
+fighter={'ATK':2,'DEF':3,'HP':30,'MP':5}
 Classes =[]
 Classes.append(barbarian)
 Classes.append(cleric)
