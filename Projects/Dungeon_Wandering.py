@@ -321,6 +321,7 @@ if decison == "Yes":
                 if answer == "Yes":
                    print("Store Owner:'If you're sure, it'll make the dungeon impossible. Onto the second Potion!'")
                    potion2_select = True
+                   potion_slot2 = "None"
                 else:
                     potion2_select = False
         print("Shop Owner: You have a",weapon_name,"you have",armor_name,"you have a",potion_slot1,"and you have a",potion_slot2)
