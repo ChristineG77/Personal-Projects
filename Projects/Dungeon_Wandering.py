@@ -19,22 +19,22 @@ weapons = [sword,mace,staff]
 sworddmg = float(2.4)
 macedmg = float(3.4)
 staffdmg = float(1)
-weapon_dmg = [sworddmg,macedmg,staffdmg]
+weaponD = [sworddmg,macedmg,staffdmg]
 #item prices
 swPrice = int(9)
 mPrice = int(10)
 sPrice=int(5)
 weapon_prices = [swPrice,mPrice,sPrice]
 #armor: leather, iron, gold
-leather = "Leather"
-iron = "Iron"
-gold = "Gold"
+leather = "Leather Armor"
+iron = "Iron Armor"
+gold = "Gold Armor"
 armor = [leather,iron,gold]
 #defense numbers
 leatherD = int(3)
 ironD = int(5)
 goldD = int(1)
-armorDEF = [leatherD,ironD,goldD]
+armorD = [leatherD,ironD,goldD]
 #armor pricing
 lPrice = int(3)
 iPrice = int(7)
@@ -97,7 +97,7 @@ if decison == "Yes":
         # based on class determine coin amount. Use if statements 
         
         if stats == barbarian:
-            coin = float(15)
+            coin = float(20)
         elif stats == cleric:
             coin = float(35)
         elif stats == fighter:
@@ -129,39 +129,201 @@ if decison == "Yes":
         weapon_select = False
         #give the user an amount of gold between 10-40 pieces and set coin_Purse variable
         while weapon_select == False:    
-            print("Store Owner:'Please tell me the weapon you want to buy': ")
+            print("Shop Owner:'Please tell me the weapon you want to buy': ")
             Item1 = input("")
             if Item1 == "Sword":
                 Item1 = 0
                 coin = (coin-(weapon_prices[Item1]))
                 print("You have",coin,"left in your coinpurse.")
-                weapon_name="Sword"
-                weapon_slot = sword
+                weapon_name=(weapons[Item1])
+                weapon_dmg = (weaponD[Item1])
                 weapon_select = True
             elif Item1 == "Mace":
                 Item1 = 1
                 coin = (coin-(weapon_prices[Item1]))
                 print("You have",coin,"left in your coinpurse.")
-                weapon_name="Mace"
-                weapon_slot = mace
+                weapon_name=(weapons[Item1])
+                weapon_dmg = (weaponD[Item1])
                 weapon_select = True
             elif Item1 == "Staff":
                 Item1 = 2
                 coin = (coin-(weapon_prices[Item1]))
                 print("You have",coin,"left in your coinpurse.")
-                weapon_name="Staff"
-                weapon_slot = staff
+                weapon_name=(weapons[Item1])
+                weapon_dmg = (weaponD[Item1])
                 weapon_select = True
             else:
-                print("Store Owner:'You didn't buy a weapon. Are you sure you would like to continue without one?'")
+                print("Shop Owner:'You didn't buy a weapon. Are you sure you would like to continue without one?'")
                 answer = input()
                 if answer == "Yes":
-                   print("Store Owner:'If you're sure, it'll make the dungeon impossible. Onto armor then!'")
+                   print("Shop Owner:'If you're sure, it'll make the dungeon impossible. Onto armor then!'")
                    weapon_select = True
                 else:
                     weapon_select = False
-        
+        armor_select = bool
+        armor_select = False
+        while armor_select == False:    
+            print("Shop Owner:'Please tell me the armor you want to buy': ")
+            Item2 = input("")
+            if Item2 == "Leather":
+                Item2 = 0
+                if coin < (armor_prices[Item2]):
+                    print("Shop Owner:'You don't have enough gold for this item!'")
+                    armor_select = False
+                else:        
+                    coin = (coin-(armor_prices[Item2]))
+                    print("You have",coin,"left in your coinpurse.")
+                    armor_name=(armor[Item2])
+                    armor_def = (armorD[Item2])
+                    armor_select = True
+            elif Item2 == "Iron":
+                Item2 = 1
+                if coin < (armor_prices[Item2]):
+                    print("Shop Owner:'You don't have enough gold for this item!'")
+                    armor_select = False
+                else:  
+                    coin = (coin-(armor_prices[Item2]))
+                    print("You have",coin,"left in your coinpurse.")
+                    armor_name=(armor[Item2])
+                    armor_def = (armorD[Item2])
+                    armor_select = True
+            elif Item2 == "Gold":
+                Item2 = 2
+                if coin < (armor_prices[Item2]):
+                    print("Shop Owner:'You don't have enough gold for this item!'")
+                    armor_select = False
+                else:  
+                    coin = (coin-(armor_prices[Item2]))
+                    print("You have",coin,"left in your coinpurse.")
+                    armor_name=(armor[Item2])
+                    armor_slot = (armorD[Item2])
+                    armor_select = True
+            else:
+                print("Store Owner:'You didn't buy any armor. Are you sure you would like to continue without any?'")
+                answer = input()
+                if answer == "Yes":
+                   print("Store Owner:'If you're sure, it'll make the dungeon impossible. Onto the first Potion!'")
+                   armor_select = True
+                else:
+                    armor_select = False
 
+        potion1_select = bool
+        potion1_select = False
+        while potion1_select == False:    
+            print("Shop Owner:'Please tell me a potion you want to buy': ")
+            Item3 = input("")
+            if Item3 == "Health":
+                Item3 = 0
+                if coin < (potion_prices[Item3]):
+                    print("Shop Owner:'You don't have enough gold for this item!'")
+                    potion1_select = False
+                else:        
+                    coin = (coin-(potion_prices[Item3]))
+                    print("You have",coin,"left in your coinpurse.")
+                    potion_slot1=(potions[Item3])
+                    potioneff = (potion_effect[Item3])
+                    potion1_select = True
+            elif Item3 == "Mana":
+                Item3 = 1
+                if coin < (potion_prices[Item3]):
+                    print("Shop Owner:'You don't have enough gold for this item!'")
+                    potion_select = False
+                else:  
+                    coin = (coin-(potion_prices[Item3]))
+                    print("You have",coin,"left in your coinpurse.")
+                    potion_slot1=(potions[Item3])
+                    potioneff = (potion_effect[Item3])
+                    potion1_select = True
+            elif Item3 == "Fire":
+                Item3 = 2
+                if coin < (potion_prices[Item3]):
+                    print("Shop Owner:'You don't have enough gold for this item!'")
+                    armor_select = False
+                else:  
+                    coin = (coin-(potion_prices[Item3]))
+                    print("You have",coin,"left in your coinpurse.")
+                    potion_slot1=(potions[Item3])
+                    potioneff = (potion_effect[Item3])
+                    potion1_select = True
+            elif Item3 == "Ice":
+                Item3 = 3
+                if coin < (potion_prices[Item3]):
+                    print("Shop Owner:'You don't have enough gold for this item!'")
+                    potion1_select = False
+                else:  
+                    coin = (coin-(potion_prices[Item3]))
+                    print("You have",coin,"left in your coinpurse.")
+                    potion_slot1=(potions[Item3])
+                    potioneff = (potion_effect[Item3])
+                    potion1_select = True
+            else:
+                print("Store Owner:'You didn't buy a potion. Are you sure you would like to continue without any?'")
+                answer = input()
+                if answer == "Yes":
+                   print("Store Owner:'If you're sure, it'll make the dungeon impossible. Onto the second Potion!'")
+                   potion1_select = True
+                else:
+                    potion1_select = False
+            
+
+        potion2_select = bool
+        potion2_select = False
+        while potion2_select == False:    
+            print("Shop Owner:'Please tell me a potion you want to buy': ")
+            Item4 = input("")
+            if Item4 == "Health":
+                Item4 = 0
+                if coin < (potion_prices[Item4]):
+                    print("Shop Owner:'You don't have enough gold for this item!'")
+                    potion2_select = False
+                else:        
+                    coin = (coin-(potion_prices[Item4]))
+                    print("You have",coin,"left in your coinpurse.")
+                    potion_slot2=(potions[Item4])
+                    potioneff = (potion_effect[Item4])
+                    potion2_select = True
+            elif Item4 == "Mana":
+                Item4 = 1
+                if coin < (potion_prices[Item4]):
+                    print("Shop Owner:'You don't have enough gold for this item!'")
+                    potion2_select = False
+                else:  
+                    coin = (coin-(potion_prices[Item4]))
+                    print("You have",coin,"left in your coinpurse.")
+                    potion_slot2=(potions[Item4])
+                    potioneff = (potion_effect[Item4])
+                    potion2_select = True
+            elif Item4 == "Fire":
+                Item4 = 2
+                if coin < (potion_prices[Item4]):
+                    print("Shop Owner:'You don't have enough gold for this item!'")
+                    potion2_select = False
+                else:  
+                    coin = (coin-(potion_prices[Item4]))
+                    print("You have",coin,"left in your coinpurse.")
+                    potion_slot2=(potions[Item4])
+                    potioneff = (potion_effect[Item4])
+                    potion2_select = True
+            elif Item4 == "Ice":
+                Item4 = 3
+                if coin < (potion_prices[Item4]):
+                    print("Shop Owner:'You don't have enough gold for this item!'")
+                    potion2_select = False
+                else:  
+                    coin = (coin-(potion_prices[Item4]))
+                    print("You have",coin,"left in your coinpurse.")
+                    potion_slot2=(potions[Item4])
+                    potioneff = (potion_effect[Item4])
+                    potion2_select = True
+            else:
+                print("Store Owner:'You didn't buy a potion. Are you sure you would like to continue without any?'")
+                answer = input()
+                if answer == "Yes":
+                   print("Store Owner:'If you're sure, it'll make the dungeon impossible. Onto the second Potion!'")
+                   potion2_select = True
+                else:
+                    potion2_select = False
+        print("Shop Owner: You have a",weapon_name,"you have",armor_name,"you have a",potion_slot1,"and you have a",potion_slot2)
  #ask user what and if they want to buy anything, 1 weapon, 1 armor, up to 2 potions. 
 
  #Input what they chose for variables player_Weapon, player_Armor, potion_slot1, potion_slot2
