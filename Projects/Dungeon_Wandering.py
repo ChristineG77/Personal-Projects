@@ -1,4 +1,7 @@
 #Write a short dungeon crawler with a boss at the end
+import magic
+#print(magic.magic_number)
+print(magic.magic)
 
 #Establish classes and their stats
 barbarian={'ATK':3,'DEF':4,'HP':40,'MP':0}
@@ -63,13 +66,18 @@ orc = {'ATK':3, 'DEF':4, 'HP':20,'MP':0}
 gnome = {'ATK':2, 'DEF':2, 'HP':10,'MP':3}
 elemental = {'ATK':1, 'DEF':8, 'HP':5,'MP':10}
 fairy = {'ATK':2, 'DEF':3, 'HP':15,'MP':5}
+Enemies = []
+Enemies.append(orc)
+Enemies.append(gnome)
+Enemies.append(elemental)
+Enemies.append(fairy)
 #start if statement to end later
 
 
-decison = input("Do you want to enter the Dungeon? Yes or No? ")
-if decison == "Yes":
-    decison = 1
-    while decison == 1:
+decision = input("Do you want to enter the Dungeon? Yes or No? ")
+if decision == "Yes" or decision == "yes":
+    decision = 1
+    while decision == 1:
         #Ask the user their na
         #me for the variable player_Name
         player_Name = input("Please enter name here: ")
@@ -78,17 +86,17 @@ if decison == "Yes":
         
         player_Class = input("Please pick a class: Barbarian, Cleric, Fighter (Please capatilize the classes name): ")
         player_c = player_Class
-        if player_c == "Barbarian":
+        if player_c == "Barbarian" or player_c == "barbarian":
             player_c = 0
             stats = barbarian
-        elif player_c == "Cleric":
+        elif player_c == "Cleric" or player_c == "cleric":
             player_c = 1
             stats = cleric
-        elif player_c == "Fighter":
+        elif player_c == "Fighter"or player_c == "fighter":
             player_c = 2
             stats = fighter
         else:
-            print("I think you spelled the class wrong, or didn't capitalize, please start from the top!")
+            print("I think you spelled the class wrong, please start from the top!")
            
 
         print(player_Name,"chose the", player_Class, " with these stats: ",(Classes[player_c]))
@@ -156,6 +164,7 @@ if decison == "Yes":
                 answer = input()
                 if answer == "Yes":
                    print("Shop Owner:'If you're sure, it'll make the dungeon impossible. Onto armor then!'")
+                   weapon_name = ""
                    weapon_select = True
                 else:
                     weapon_select = False
@@ -202,6 +211,7 @@ if decison == "Yes":
                 answer = input()
                 if answer == "Yes":
                    print("Store Owner:'If you're sure, it'll make the dungeon impossible. Onto the first Potion!'")
+                   armor_name = ""
                    armor_select = True
                 else:
                     armor_select = False
@@ -219,8 +229,8 @@ if decison == "Yes":
                 else:        
                     coin = (coin-(potion_prices[Item3]))
                     print("You have",coin,"left in your coinpurse.")
-                    potion_slot1=(potions[Item3])
-                    potioneff = (potion_effect[Item3])
+                    potion_name1=(potions[Item3])
+                    potion_slot1 = (potion_effect[Item3])
                     potion1_select = True
             elif Item3 == "Mana":
                 Item3 = 1
@@ -230,8 +240,8 @@ if decison == "Yes":
                 else:  
                     coin = (coin-(potion_prices[Item3]))
                     print("You have",coin,"left in your coinpurse.")
-                    potion_slot1=(potions[Item3])
-                    potioneff = (potion_effect[Item3])
+                    potion_name1=(potions[Item3])
+                    potion_slot1 = (potion_effect[Item3])
                     potion1_select = True
             elif Item3 == "Fire":
                 Item3 = 2
@@ -241,8 +251,8 @@ if decison == "Yes":
                 else:  
                     coin = (coin-(potion_prices[Item3]))
                     print("You have",coin,"left in your coinpurse.")
-                    potion_slot1=(potions[Item3])
-                    potioneff = (potion_effect[Item3])
+                    potion_name1=(potions[Item3])
+                    potion_slot1 = (potion_effect[Item3])
                     potion1_select = True
             elif Item3 == "Ice":
                 Item3 = 3
@@ -252,14 +262,15 @@ if decison == "Yes":
                 else:  
                     coin = (coin-(potion_prices[Item3]))
                     print("You have",coin,"left in your coinpurse.")
-                    potion_slot1=(potions[Item3])
-                    potioneff = (potion_effect[Item3])
+                    potion_name1=(potions[Item3])
+                    potion_slot1 = (potion_effect[Item3])
                     potion1_select = True
             else:
                 print("Store Owner:'You didn't buy a potion. Are you sure you would like to continue without any?'")
                 answer = input()
                 if answer == "Yes":
                    print("Store Owner:'If you're sure, it'll make the dungeon impossible. Onto the second Potion!'")
+                   potion_name1 = ""
                    potion1_select = True
                 else:
                     potion1_select = False
@@ -278,8 +289,8 @@ if decison == "Yes":
                 else:        
                     coin = (coin-(potion_prices[Item4]))
                     print("You have",coin,"left in your coinpurse.")
-                    potion_slot2=(potions[Item4])
-                    potioneff = (potion_effect[Item4])
+                    potion_name2=(potions[Item4])
+                    potion_slot2 = (potion_effect[Item4])
                     potion2_select = True
             elif Item4 == "Mana":
                 Item4 = 1
@@ -289,8 +300,8 @@ if decison == "Yes":
                 else:  
                     coin = (coin-(potion_prices[Item4]))
                     print("You have",coin,"left in your coinpurse.")
-                    potion_slot2=(potions[Item4])
-                    potioneff = (potion_effect[Item4])
+                    potion_name2=(potions[Item4])
+                    potion_slot2 = (potion_effect[Item4])
                     potion2_select = True
             elif Item4 == "Fire":
                 Item4 = 2
@@ -300,8 +311,8 @@ if decison == "Yes":
                 else:  
                     coin = (coin-(potion_prices[Item4]))
                     print("You have",coin,"left in your coinpurse.")
-                    potion_slot2=(potions[Item4])
-                    potioneff = (potion_effect[Item4])
+                    potion_name2=(potions[Item4])
+                    potion_slot2 = (potion_effect[Item4])
                     potion2_select = True
             elif Item4 == "Ice":
                 Item4 = 3
@@ -311,8 +322,8 @@ if decison == "Yes":
                 else:  
                     coin = (coin-(potion_prices[Item4]))
                     print("You have",coin,"left in your coinpurse.")
-                    potion_slot2=(potions[Item4])
-                    potioneff = (potion_effect[Item4])
+                    potion_name2=(potions[Item4])
+                    potion_slot2 = (potion_effect[Item4])
                     potion2_select = True
             else:
                 print("Store Owner:'You didn't buy a potion. Are you sure you would like to continue without any?'")
@@ -320,10 +331,10 @@ if decison == "Yes":
                 if answer == "Yes":
                    print("Store Owner:'If you're sure, it'll make the dungeon impossible. Onto the second Potion!'")
                    potion2_select = True
-                   potion_slot2 = "None"
+                   potion_name2 = ""
                 else:
-                    potion2_select = False
-        print("Shop Owner: You have a",weapon_name,"you have",armor_name,"you have a",potion_slot1,"and you have a",potion_slot2)
+                   potion2_select = False
+        print("Shop Owner: You have a",weapon_name,"you have",armor_name,"you have a",potion_name1,"and you have a",potion_name2)
  #ask user what and if they want to buy anything, 1 weapon, 1 armor, up to 2 potions. 
 
  #Input what they chose for variables player_Weapon, player_Armor, potion_slot1, potion_slot2
@@ -332,9 +343,9 @@ if decison == "Yes":
 
  #Ask if user is sure about their chioce, if no, ask if they'd like to try again, if yes, send them back to the top
  #end if statement, and move to next section if they choose to
-        decison = input("Would you like to go back and restart? Yes or No? ")
-        if decison == "Yes":
-            decison = 1
+        decision = input("Would you like to go back and restart? Yes or No? ")
+        if decision == "Yes":
+            decision = 1
         else:    
             print("Lets head into the dungeon")
 else:
