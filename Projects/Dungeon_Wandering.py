@@ -357,13 +357,31 @@ if decision == "Yes" or decision == "yes":
             print("Lets head into the dungeon")
 else:
     print("Have fun elsewhere!")
+
+
 player_dmg = weapon_dmg * stats['ATK']
 player_def = armor_def * stats['DEF']
 player_hp = stats['HP']
 player_mp = stats['MP'] 
+print("*"*5,"Magicks!","*"*5)
 if stats == cleric:
     print("As a Cleric you have access to two magic spells: Heal and Holy.\nHeal will heal you back 5 health and Holy does 6 dmg to enemies.\nHeal uses 3 Mana and Holy uses 5 Mana.")
 elif stats == fighter:
     print("As a Fighter you have access to one magic spell: Barrier.\nBarrier will increase you defense by 3 for 1 turn.\nBarrier costs 2 Mana.")
 else:
-    print()
+    print("You are a Barbarian and have no need for spells and magic!")
+print("*"*20)
+#Spells
+Heal = 5 * player_hp
+Barrier = 3 + player_def
+#Holy = 6 - enemy_hp
+print("You enter the first Dungeon Room! You see a: ")
+battle = True
+while battle == True:
+    monster = input("Pick a number: 1, 2, 3, or 4")
+    if monster != "1" or monster != "2" or monster != "3" or monster != "4":
+        print("You didn't pick a number")
+        battle = True
+    else:
+        battle = False
+    
