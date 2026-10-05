@@ -204,7 +204,7 @@ if decision == "Yes" or decision == "yes":
                     coin = (coin-(armor_prices[Item2]))
                     print("You have",coin,"left in your coinpurse.")
                     armor_name=(armor[Item2])
-                    armor_slot = (armorD[Item2])
+                    armor_def = (armorD[Item2])
                     armor_select = True
             else:
                 print("Store Owner:'You didn't buy any armor. Are you sure you would like to continue without any?'")
@@ -269,7 +269,7 @@ if decision == "Yes" or decision == "yes":
                 print("Store Owner:'You didn't buy a potion. Are you sure you would like to continue without any?'")
                 answer = input()
                 if answer == "Yes":
-                   print("Store Owner:'If you're sure, it'll make the dungeon impossible. Onto the second Potion!'")
+                   print("Store Owner:'If you're sure, it'll make the dungeon difficult. Onto the second Potion!'")
                    potion_name1 = ""
                    potion1_select = True
                 else:
@@ -329,12 +329,19 @@ if decision == "Yes" or decision == "yes":
                 print("Store Owner:'You didn't buy a potion. Are you sure you would like to continue without any?'")
                 answer = input()
                 if answer == "Yes":
-                   print("Store Owner:'If you're sure, it'll make the dungeon impossible. Onto the second Potion!'")
+                   print("Store Owner:'If you're sure, it'll make the dungeon difficult!'")
                    potion2_select = True
                    potion_name2 = ""
                 else:
                    potion2_select = False
-        print("Shop Owner: You have a",weapon_name,"you have",armor_name,"you have a",potion_name1,"and you have a",potion_name2)
+        if potion_name1 == "" and potion_name2 != "":
+            print("Shop Owner: You have a",weapon_name,"you have",armor_name,"and you have a",potion_name2)
+        elif potion_name2 == "" and potion_name1 != "":
+            print("Shop Owner: You have a",weapon_name,"you have,",armor_name, "and you have a", potion_name1)
+        elif potion_name1 == "" and potion_name2 == "":
+            print("Shop Owner: You have a",weapon_name,"and",armor_name)
+        else:
+            print("Shop Owner: You have a",weapon_name,"you have",armor_name,"you have a",potion_name1,"and you have a",potion_name2)
  #ask user what and if they want to buy anything, 1 weapon, 1 armor, up to 2 potions. 
 
  #Input what they chose for variables player_Weapon, player_Armor, potion_slot1, potion_slot2
@@ -350,3 +357,13 @@ if decision == "Yes" or decision == "yes":
             print("Lets head into the dungeon")
 else:
     print("Have fun elsewhere!")
+player_dmg = weapon_dmg * stats['ATK']
+player_def = armor_def * stats['DEF']
+player_hp = stats['HP']
+player_mp = stats['MP'] 
+if stats == cleric:
+    print("As a Cleric you have access to two magic spells: Heal and Holy.\nHeal will heal you back 5 health and Holy does 6 dmg to enemies.\nHeal uses 3 Mana and Holy uses 5 Mana.")
+elif stats == fighter:
+    print("As a Fighter you have access to one magic spell: Barrier.\nBarrier will increase you defense by 3 for 1 turn.\nBarrier costs 2 Mana.")
+else:
+    print()
