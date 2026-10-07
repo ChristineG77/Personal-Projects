@@ -363,6 +363,7 @@ player_dmg = weapon_dmg * stats['ATK']
 player_def = armor_def * stats['DEF']
 player_hp = stats['HP']
 player_mp = stats['MP'] 
+
 print("*"*5,"Magicks!","*"*5)
 if stats == cleric:
     print("As a Cleric you have access to two magic spells: Heal and Holy.\nHeal will heal you back 5 health and Holy does 6 dmg to enemies.\nHeal uses 3 Mana and Holy uses 5 Mana.")
@@ -371,18 +372,54 @@ elif stats == fighter:
 else:
     print("You are a Barbarian and have no need for spells and magic!")
 print("*"*20)
+
+
+print("You enter a Dungeon Room! You see a: ")
+battle = True
+while battle == True:
+    monster = input("Pick a number: 1, 2, 3, or 4")
+    if monster != "1" and monster != "2" and monster != "3" and monster != "4":
+        print("You didn't pick a number")
+        battle = True
+    elif monster == "1":
+        monster = 0
+        print("You see an Orc standing in the center of the room!")
+        enemy = Enemies[monster]
+        enemy_hp = enemy['HP']
+        enemy_atk = enemy['ATK']
+        enemy_def = enemy['DEF']
+        enemy_mp = enemy['MP']
+        battle = False
+    elif monster == "2":
+        monster = 1
+        print("You see a Gnome sitting on a mushroom in the center of the room!")
+        enemy = Enemies[monster]
+        enemy_hp = enemy['HP']
+        enemy_atk = enemy['ATK']
+        enemy_def = enemy['DEF']
+        enemy_mp = enemy['MP']
+        battle = False
+    elif monster == "3":
+        monster = 2
+        print("You see a Fairy flittering about the room!")
+        enemy = Enemies[monster]
+        enemy_hp = enemy['HP']
+        enemy_atk = enemy['ATK']
+        enemy_def = enemy['DEF']
+        enemy_mp = enemy['MP']
+        battle = False
+    elif monster == "4":
+        monster = 3
+        print("You see a Elemental floating in the center of the room!")
+        enemy = Enemies[monster]
+        enemy_hp = enemy['HP']
+        enemy_atk = enemy['ATK']
+        enemy_def = enemy['DEF']
+        enemy_mp = enemy['MP']
+        battle = False
+
+print("The monster sees you! The battle begins!!")
 #Spells
 Heal = 5 * player_hp
 Barrier = 3 + player_def
-#Holy = 6 - enemy_hp
-print("You enter the first Dungeon Room! You see a: ")
-def battle():
-    battle = True
-    while battle == True:
-        monster = input("Pick a number: 1, 2, 3, or 4")
-        if monster != "1" or monster != "2" or monster != "3" or monster != "4":
-            print("You didn't pick a number")
-            battle = True
-        else:
-            battle = False
-    
+Holy = 6 - enemy_hp
