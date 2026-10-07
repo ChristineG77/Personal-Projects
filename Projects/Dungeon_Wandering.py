@@ -418,7 +418,10 @@ while battle == True:
         enemy_mp = enemy['MP']
         battle = False
 
+#Fight!!
 print("The monster sees you! The battle begins!!")
+
+
 #Spells
 Heal = 5 * player_hp
 Barrier = 3 + player_def
