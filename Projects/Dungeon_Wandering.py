@@ -376,12 +376,13 @@ Heal = 5 * player_hp
 Barrier = 3 + player_def
 #Holy = 6 - enemy_hp
 print("You enter the first Dungeon Room! You see a: ")
-battle = True
-while battle == True:
-    monster = input("Pick a number: 1, 2, 3, or 4")
-    if monster != "1" or monster != "2" or monster != "3" or monster != "4":
-        print("You didn't pick a number")
-        battle = True
-    else:
-        battle = False
+def battle():
+    battle = True
+    while battle == True:
+        monster = input("Pick a number: 1, 2, 3, or 4")
+        if monster != "1" or monster != "2" or monster != "3" or monster != "4":
+            print("You didn't pick a number")
+            battle = True
+        else:
+            battle = False
     
