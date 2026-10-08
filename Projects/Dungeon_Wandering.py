@@ -444,22 +444,27 @@ while enemy_hp != 0:
         player_hp = (enemy_atk - player_def) - player_hp
         print("You have ",player_hp,"HP left!")
     elif action == "Magick" and enemy_hp >= (enemy_hp *.5):
-        spell = input("Which spell will you use?")
-        if spell == "Heal":
-            if stats == cleric:
-                if max_hp == player_hp:
-                    choice = input("Are you sure you want to use this spell?\n You're still at full HP. Yes or No")
-                    if choice == "Yes" or choice == "yes":
-                        print("You used Heal!")
-                        player_mp = player_mp - healcost
-                        print("You have",player_mp,"MP left.")
+        magick = True
+        while magick == True:
+            spell = input("Which spell will you use?")
+            if spell == "Heal":
+                if stats == cleric:
+                    if max_hp == player_hp:
+                        choice = input("Are you sure you want to use this spell?\n You're still at full HP. Yes or No")
+                        if choice == "Yes" or choice == "yes":
+                            print("You used Heal!")
+                            player_mp = player_mp - healcost
+                            print("You have",player_mp,"MP left.")
+                            magick == False
+                        else:
+                            print("Alright then, choose again.")
+                            magick == True  
                     else:
-                        print()
+                        player_hp = Heal
+                        print("You healed 5 HP! You're current health is",player_hp)
+                        magick = False
                 else:
-                    player_hp = Heal
-                    print("You healed 5 HP! You're current health is",player_hp)
-            else:
-                print("You're not a Cleric, you don't have access to this spell")
+                    print("You're not a Cleric, you don't have access to this spell!")
     
 
 
