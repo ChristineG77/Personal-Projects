@@ -62,6 +62,7 @@ iPrice = int(8)
 potion_prices = [hPrice,mPrice,fPrice,iPrice]
 #Establish enemy variables and stats using lists these are constants
 #enemies: orc, gnome,elemental,fairy
+Enemy = ["Orc","Gnome","Fairy","Elemental"]
 orc = {'ATK':3, 'DEF':4, 'HP':20,'MP':0}
 gnome = {'ATK':2, 'DEF':2, 'HP':10,'MP':3}
 elemental = {'ATK':1, 'DEF':8, 'HP':5,'MP':10}
@@ -387,15 +388,18 @@ while battle == True:
         monster = 0
         print("You see an Orc standing in the center of the room!")
         enemy = Enemies[monster]
+        enemy_name = Enemy[monster]
         enemy_hp = enemy['HP']
         enemy_atk = enemy['ATK']
         enemy_def = enemy['DEF']
         enemy_mp = enemy['MP']
+        print(enemy_hp,enemy_atk,enemy_def,enemy_mp)
         battle = False
     elif monster == "2":
         monster = 1
         print("You see a Gnome sitting on a mushroom in the center of the room!")
         enemy = Enemies[monster]
+        enemy_name = Enemy[monster]
         enemy_hp = enemy['HP']
         enemy_atk = enemy['ATK']
         enemy_def = enemy['DEF']
@@ -405,6 +409,7 @@ while battle == True:
         monster = 2
         print("You see a Fairy flittering about the room!")
         enemy = Enemies[monster]
+        enemy_name = Enemy[monster]
         enemy_hp = enemy['HP']
         enemy_atk = enemy['ATK']
         enemy_def = enemy['DEF']
@@ -414,6 +419,7 @@ while battle == True:
         monster = 3
         print("You see a Elemental floating in the center of the room!")
         enemy = Enemies[monster]
+        enemy_name = Enemy[monster]
         enemy_hp = enemy['HP']
         enemy_atk = enemy['ATK']
         enemy_def = enemy['DEF']
@@ -421,28 +427,31 @@ while battle == True:
         battle = False
 
 #Spells
-Heal = 5 + player_hp
+Heal = 5 
 healcost = 3
-Barrier = 3 + player_def
+Barrier = 3 
 barriercost = 2
-Holy = 6 - enemy_hp
+Holy = -6
 holycost = 5
 #Fight!!
 #fight sequence will be, atk, atk, def, mag(if they have it, if not atk), def, def, atk
 print("The monster sees you! The battle begins!!")
 print()
-while enemy_hp != 0:
-    action = input("The",enemy, "readies an action.\n What will you do? Attack, Defend, use Magick, or use a Potion ")
-    print("The",enemy,"prepares an action!")
+print("The",enemy_name,"prepares an action!")
+while enemy_hp != 0 and enemy_hp > 0:
+    print("What will you do? Attack, Defend, use Magick, or use a Potion?")
+    action = input()
     if action == "attack" and enemy_hp >= (enemy_hp*.5):
-        print("The",enemy,"attacks you!")
-        enemy_hp = player_dmg - enemy_hp
-        player_hp = enemy_atk - player_hp
+        print("The",enemy_name,"attacks you!")
+        player_hp = player_hp - enemy_atk
         print("You have ",player_hp,"HP left!")
+        enemy_hp = enemy_hp - player_dmg
+        print(f"The enemy has{enemy_hp:.0f} HP left")
     elif action == "defend" and enemy_hp >= (enemy_hp*.5):
-        print("The",enemy,"attacks you!")
-        player_hp = (enemy_atk - player_def) - player_hp
+        print("The",enemy_name,"attacks you!")
+        player_hp = player_hp - (player_def - enemy_atk)
         print("You have ",player_hp,"HP left!")
+        print(f"The enemy has{enemy_hp:.0f} HP left")
     elif action == "Magick" and enemy_hp >= (enemy_hp *.5):
         magick = True
         while magick == True:
@@ -460,11 +469,18 @@ while enemy_hp != 0:
                             print("Alright then, choose again.")
                             magick == True  
                     else:
-                        player_hp = Heal
+                        player_hp = Heal + player_hp
                         print("You healed 5 HP! You're current health is",player_hp)
                         magick = False
                 else:
                     print("You're not a Cleric, you don't have access to this spell!")
-    
+            if spell == "Holy":
+                            if stats == cleric:
+                                enemy_hp = enemy_hp + Holy
+                                print(f"The enemy has{enemy_hp:.0f} HP left")
+                            else:
+                                print("You're not a Cleric, you don't have access to this spell!")
+            
+print("You have defeated the",enemy_name,"! Take your loot and continue onward")
 
 
