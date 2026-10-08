@@ -441,6 +441,8 @@ while Player == True:
     print()
     print("The",enemy_name,"prepares an action!")
     print()
+    # combat_continues = True # set to False when player or enemy hp <= 0
+    # while combat_continues:
     while enemy_hp != 0 and enemy_hp > 0 and player_hp != 0 and player_hp > 0:
         print("What will you do? Attack, Defend, use Magick, or use a Potion?")
         action = input()
@@ -468,6 +470,7 @@ while Player == True:
                 print()
                 if spell == "Heal":
                     if stats == cleric:
+
                         if max_hp == player_hp:
                             choice = input("Are you sure you want to use this spell?\n You're still at full HP. Yes or No")
                             if choice == "Yes" or choice == "yes":
