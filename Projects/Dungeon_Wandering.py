@@ -361,7 +361,9 @@ else:
 
 player_dmg = weapon_dmg * stats['ATK']
 player_def = armor_def * stats['DEF']
+max_hp = stats['HP']
 player_hp = stats['HP']
+max_mp = stats['MP']
 player_mp = stats['MP'] 
 
 print("*"*5,"Magicks!","*"*5)
@@ -370,7 +372,7 @@ if stats == cleric:
 elif stats == fighter:
     print("As a Fighter you have access to one magic spell: Barrier.\nBarrier will increase you defense by 3 for 1 turn.\nBarrier costs 2 Mana.")
 else:
-    print("You are a Barbarian and have no need for spells and magic!")
+    print("You are a Barbarian and have no need for spells and magick!")
 print("*"*20)
 
 
@@ -418,11 +420,46 @@ while battle == True:
         enemy_mp = enemy['MP']
         battle = False
 
-#Fight!!
-print("The monster sees you! The battle begins!!")
-
-
 #Spells
-Heal = 5 * player_hp
+Heal = 5 + player_hp
+healcost = 3
 Barrier = 3 + player_def
+barriercost = 2
 Holy = 6 - enemy_hp
+holycost = 5
+#Fight!!
+#fight sequence will be, atk, atk, def, mag(if they have it, if not atk), def, def, atk
+print("The monster sees you! The battle begins!!")
+print()
+while enemy_hp != 0:
+    action = input("The",enemy, "readies an action.\n What will you do? Attack, Defend, use Magick, or use a Potion ")
+    print("The",enemy,"prepares an action!")
+    if action == "attack" and enemy_hp >= (enemy_hp*.5):
+        print("The",enemy,"attacks you!")
+        enemy_hp = player_dmg - enemy_hp
+        player_hp = enemy_atk - player_hp
+        print("You have ",player_hp,"HP left!")
+    elif action == "defend" and enemy_hp >= (enemy_hp*.5):
+        print("The",enemy,"attacks you!")
+        player_hp = (enemy_atk - player_def) - player_hp
+        print("You have ",player_hp,"HP left!")
+    elif action == "Magick" and enemy_hp >= (enemy_hp *.5):
+        spell = input("Which spell will you use?")
+        if spell == "Heal":
+            if stats == cleric:
+                if max_hp == player_hp:
+                    choice = input("Are you sure you want to use this spell?\n You're still at full HP. Yes or No")
+                    if choice == "Yes" or choice == "yes":
+                        print("You used Heal!")
+                        player_mp = player_mp - healcost
+                        print("You have",player_mp,"MP left.")
+                    else:
+                        print()
+                else:
+                    player_hp = Heal
+                    print("You healed 5 HP! You're current health is",player_hp)
+            else:
+                print("You're not a Cleric, you don't have access to this spell")
+    
+
+
