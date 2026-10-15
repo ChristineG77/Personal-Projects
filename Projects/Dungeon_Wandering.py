@@ -370,6 +370,8 @@ while Player == True:
     max_mp = stats['MP']
     player_mp = stats['MP'] 
 
+#check inventory
+
     print()
     print("*"*5,"Magicks!","*"*5)
     if stats == cleric:
@@ -468,7 +470,7 @@ while Player == True:
             print("The",enemy_name,"attacks you!")
     #need another if statement for if an enemy attack bounces off the player
             if player_def < enemy_atk:
-                player_hp = player_hp - (player_def - enemy_atk)
+                player_hp = player_hp - (enemy_atk - player_def)
                 print("You have ",player_hp,"HP left!")
                 print(f"The enemy has {enemy_hp:.0f} HP left")
                 print("-"*40)
@@ -552,7 +554,7 @@ while Player == True:
             print("The",enemy_name,"defends itself!")
             print()
             if enemy_def < player_dmg:
-                enemy_hp = enemy_hp - (enemy_def - player_dmg)
+                enemy_hp = enemy_hp - (player_dmg - enemy_def)
                 print("You have ",player_hp,"HP left!")
                 print(f"The enemy has {enemy_hp:.0f} HP left")
                 player_dmg = max_dmg
@@ -628,6 +630,31 @@ while Player == True:
                         magick = False
                 else:
                     print("You're not a Fighter, you don't have access to this spell!")
+
+        elif action == "Potion":
+            if potion_name1 !="" and potion_name2 != "":
+                print("You have a",potion_name1,"and a",potion_name2,"to use. Which would you like to use?")
+                print("Enter the name of the potion would you like to use:")
+                potion_use = input()
+                if potion_use == potion_name1 or potion_use == potion_name2:
+                    if potion_use == "Health":
+                        print(0)
+                else:
+                    print("You don't have that potion.")
+            elif potion_name1 != "" and potion_name2 == "":
+                print("You have a ",potion_name1,"to use.")
+                print("Enter the name of the potion would you like to use:")
+                potoin_use = input()
+            elif potion_name1 =="" and potion_name2 != "":
+                print("You have a",potion_name2,"to use.") 
+                print("Enter the name of the potion would you like to use:")
+                potion_use = input()
+            elif potion_name1 == "" and potion_name2 == "":
+                print("You don't have any potions to use. Please pick something else.")
+        
+            
+            
+
 
     if enemy_hp == 0 or enemy_hp < 0:
         print("You have defeated the",enemy_name,"! Take your loot and continue onward")
