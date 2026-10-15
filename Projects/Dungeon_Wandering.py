@@ -1003,6 +1003,7 @@ while Player == True:
                         print("You're not a Fighter, you don't have access to this spell!")
                         magick = False
                 else:
+                    # change the others above to elifs
                     print()
 
         elif action == "Potion":
