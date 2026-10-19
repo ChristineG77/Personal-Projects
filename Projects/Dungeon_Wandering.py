@@ -481,7 +481,7 @@ while Player == True:
             print("-"*40)
         elif action == "Magick" and enemy_hp >= (enemy_maxhp *.5):
             magick = True
-            while magick == True:
+            while magick == True and player_mp != 0:  #trying new while statement to check for mp
                 spell = input("Which spell will you use? ")
                 print()
                 if spell == "Heal":
@@ -518,10 +518,11 @@ while Player == True:
                     else:
                         print("You're not a Cleric, you don't have access to this spell!")
                         magick = False
-                if spell == "Holy":
+                elif spell == "Holy":
                     if stats == cleric:
                         enemy_hp = enemy_hp + Holy
                         print("-"*40)
+                        player_mp = player_mp - holycost
                         print(f"The enemy has {enemy_hp:.0f} HP left")
                         print("The",enemy_name,"attacks you!")
                         player_hp = player_hp - enemy_atk
@@ -531,10 +532,11 @@ while Player == True:
                     else:
                         print("You're not a Cleric, you don't have access to this spell!")
                         magick = False
-                if spell == "Barrier":
+                elif spell == "Barrier":
                     if stats == fighter:
                         player_def = player_def + Barrier
                         print("-"*40)
+                        player_mp = player_mp - barriercost
                         print("The",enemy_name,"attacks you!")
                         if player_def < enemy_atk:
                             player_hp = player_hp - (player_def - enemy_atk)
@@ -552,7 +554,7 @@ while Player == True:
                         print("You're not a Fighter, you don't have access to this spell!")
                         magick = False
                 else:
-                    print()
+                    print("You're a Barbarian! You don't have access to spells!")
 
         #switch up the attacks to defense while the enemy has health under half
         elif action == "Attack" and enemy_hp < (enemy_maxhp * .5):
@@ -579,7 +581,7 @@ while Player == True:
             
         elif action == "Magick" and enemy_hp < (enemy_maxhp *.5):
             magick = True
-            while magick == True:
+            while magick == True and player_mp != 0: #trying new while loop to check for player_mp
                 spell = input("Which spell will you use? ")
                 print()
                 if spell == "Heal":
@@ -612,9 +614,10 @@ while Player == True:
                     else:
                         print("You're not a Cleric, you don't have access to this spell!")
                         magick = False
-                if spell == "Holy":
+                elif spell == "Holy":
                     if stats == cleric:
                         enemy_hp = enemy_hp + Holy
+                        player_mp = player_mp - holycost
                         print("-"*40)
                         print(f"The enemy has {enemy_hp:.0f} HP left")
                         print("The",enemy_name,"defends itself!")
@@ -624,9 +627,10 @@ while Player == True:
                     else:
                         print("You're not a Cleric, you don't have access to this spell!")
                         magick = False
-                if spell == "Barrier":
+                elif spell == "Barrier":
                     if stats == fighter:
                         player_def = player_def + Barrier
+                        player_mp = player_mp - barriercost
                         print("-"*40)
                         print("The",enemy_name,"defends itself!")                        
                         print("You have ",player_hp,"HP left!")
@@ -638,7 +642,7 @@ while Player == True:
                         print("You're not a Fighter, you don't have access to this spell!")
                         magick = False
                 else:
-                    print()
+                    print("You're a Barbarian! You don't have access to spells!")
 
         elif action == "Potion":
             if potion_name1 !="" and potion_name2 != "":
