@@ -76,21 +76,21 @@ Enemies.append(fairy)
 Player = bool
 Player = True
 while Player == True:
-    print("-"*30)
+    
     decision = input("Do you want to enter the Dungeon? Yes or No? ")
     if decision == "Yes" or decision == "yes":
         decision = 1
         while decision == 1:
             #Ask the user their na
             #me for the variable player_Name
-            print("-"*30)
+            
             player_Name = input("Please enter name here: ")
-            print("-"*30)
+            
             #Provide a list of classes, each class has a different set of stats and abilities
             #Ask the user which class they want for the variable player_Class and player_c
-            print("-"*30)
+            
             player_Class = input("Please pick a class: Barbarian, Cleric, Fighter (Please capatilize the classes name): ")
-            print("-"*30)
+            
             player_c = player_Class
             if player_c == "Barbarian" or player_c == "barbarian":
                 player_c = 0
