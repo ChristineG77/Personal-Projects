@@ -70,8 +70,8 @@ fairy = {'ATK':2, 'DEF':3, 'HP':15,'MP':5}
 Enemies = []
 Enemies.append(orc)
 Enemies.append(gnome)
-Enemies.append(elemental)
 Enemies.append(fairy)
+Enemies.append(elemental)
 #start if statement to end later
 Player = bool
 Player = True
