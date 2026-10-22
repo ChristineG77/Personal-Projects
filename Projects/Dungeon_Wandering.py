@@ -6,7 +6,7 @@
 #Establish classes and their stats
 barbarian={'ATK':3,'DEF':4,'HP':40,'MP':0}
 cleric={'ATK':1,'DEF':2,'HP':20,'MP':10}
-fighter={'ATK':2,'DEF':3,'HP':30,'MP':5}
+fighter={'ATK':2,'DEF':3,'HP':30,'MP':8}
 Classes =[]
 Classes.append(barbarian)
 Classes.append(cleric)
