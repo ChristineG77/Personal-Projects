@@ -399,6 +399,7 @@ while Player == True:
                 battle = True
             elif monster == "1":
                 monster = 0
+                print("*"*30)
                 print("You see an Orc standing in the center of the room!")
                 enemy = Enemies[monster]
                 enemy_name = Enemy[monster]
@@ -410,6 +411,7 @@ while Player == True:
                 battle = False
             elif monster == "2":
                 monster = 1
+                print("*"*30)
                 print("You see a Gnome sitting on a mushroom in the center of the room!")
                 enemy = Enemies[monster]
                 enemy_name = Enemy[monster]
@@ -421,6 +423,7 @@ while Player == True:
                 battle = False
             elif monster == "3":
                 monster = 2
+                print("*"*30)
                 print("You see a Fairy flittering about the room!")
                 enemy = Enemies[monster]
                 enemy_name = Enemy[monster]
@@ -432,6 +435,7 @@ while Player == True:
                 battle = False
             elif monster == "4":
                 monster = 3
+                print("*"*30)
                 print("You see a Elemental floating in the center of the room!")
                 enemy = Enemies[monster]
                 enemy_name = Enemy[monster]
@@ -441,8 +445,7 @@ while Player == True:
                 enemy_mp = enemy['MP']
                 enemy_maxhp = enemy_hp
                 battle = False
-        print()
-        print()
+        
         #Spells
         Heal = 5
         healcost = 3
@@ -452,7 +455,7 @@ while Player == True:
         holycost = 5
         #Fight!!
         #fight sequence will be, atk, atk, def, mag(if they have it, if not atk), def, def, atk
-        print("*"*30)
+        
         print("The monster sees you! The battle begins!!")
         print("The",enemy_name,"prepares an action!")
         print("*"*30)
@@ -640,8 +643,8 @@ while Player == True:
                             enemy_hp = enemy_hp + Holy
                             player_mp = player_mp - holycost
                             print("-"*40)
-                            print(f"The enemy has {enemy_hp:.0f} HP left")
                             print("The",enemy_name,"defends itself!")
+                            print(f"The enemy has {enemy_hp:.0f} HP left")
                             print("You have",player_hp,"HP left!")
                             print("-"*40)
                             magick = False
