@@ -351,7 +351,7 @@ while Player == True:
                 print("Shop Owner: You have a",weapon_name,"and",armor_name)
             else:
                 print("Shop Owner: You have a",weapon_name,"you have",armor_name,"you have a",potion_name1,"and you have a",potion_name2)
-    #ask user what and if they want to buy anything, 1 weapon, 1 armor, up to 2 potions. 
+    #ask user what and if they want to buy anything, 1 weapon, 1 armor, up to 2 potions.
 
     #Input what they chose for variables player_Weapon, player_Armor, potion_slot1, potion_slot2
 
@@ -579,7 +579,7 @@ while Player == True:
                             magick = False
                     else:
                         print("You're a Barbarian! You don't have access to spells!")
-
+                print("You don't have enough mana to cast spells.")
             #switch up the attacks to defense while the enemy has health under half
             elif action == "Attack" and enemy_hp < (enemy_maxhp * .5):
                 print("-"*40)
@@ -808,6 +808,7 @@ while Player == True:
                 battle = True
             elif monster == "1":
                 monster = 0
+                print("*"*30)
                 print("You see an Orc standing in the center of the room!")
                 enemy = Enemies[monster]
                 enemy_name = Enemy[monster]
@@ -819,6 +820,7 @@ while Player == True:
                 battle = False
             elif monster == "2":
                 monster = 1
+                print("*"*30)
                 print("You see a Gnome sitting on a mushroom in the center of the room!")
                 enemy = Enemies[monster]
                 enemy_name = Enemy[monster]
@@ -830,6 +832,7 @@ while Player == True:
                 battle = False
             elif monster == "3":
                 monster = 2
+                print("*"*30)
                 print("You see a Fairy flittering about the room!")
                 enemy = Enemies[monster]
                 enemy_name = Enemy[monster]
@@ -841,6 +844,7 @@ while Player == True:
                 battle = False
             elif monster == "4":
                 monster = 3
+                print("*"*30)
                 print("You see a Elemental floating in the center of the room!")
                 enemy = Enemies[monster]
                 enemy_name = Enemy[monster]
@@ -850,10 +854,8 @@ while Player == True:
                 enemy_mp = enemy['MP']
                 enemy_maxhp = enemy_hp
                 battle = False
-            print("*"*40)
-            print()
-            print()
-        print("*"*30)
+            
+        
         print("The monster sees you! The battle begins!!")
         print("The",enemy_name,"prepares an action!")
         print("*"*30)
@@ -861,6 +863,7 @@ while Player == True:
         # while combat_continues:
         while enemy_hp != 0 and enemy_hp > 0 and player_hp != 0 and player_hp > 0:
             print("What will you do? Attack, Defend, use Magick, or use a Potion?")
+            print()
             action = input()
             
             if action == "Attack" and enemy_hp >= (enemy_maxhp*.5):
