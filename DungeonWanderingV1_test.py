@@ -482,10 +482,10 @@ while Player == True:
                 if player_def < enemy_atk:
                     player_hp = player_hp - (enemy_atk - player_def)
                     print("You have",player_hp,"HP left!")
-                    print(f"The enemy still has {enemy_hp:.0f} HP left")
+                    #print(f"The enemy still has {enemy_hp:.0f} HP left")
                 elif player_def > enemy_atk:
                     print("The",enemy_name,"attack bounces off your armor.")
-                    print(f"The enemy still has {enemy_hp:.0f} HP left")
+                    #print(f"The enemy still has {enemy_hp:.0f} HP left")
                 print("-"*40)
             # move all the changes from magick to the other magick!
             elif action == "Magick" and enemy_hp >= (enemy_maxhp *.5):
@@ -543,6 +543,7 @@ while Player == True:
                                 print("The",enemy_name,"attacks you!")
                                 player_hp = player_hp - enemy_atk
                                 print("You have ",player_hp,"HP left!")
+                                print("You have",player_mp,"MP left.")
                                 print("-"*40)
                                 magick = False
                             else:
@@ -578,8 +579,12 @@ while Player == True:
                             print("You're not a Fighter, you don't have access to this spell!")
                             magick = False
                     else:
-                        print("You're a Barbarian! You don't have access to spells!")
-                print("You don't have enough mana to cast spells.")
+                        print("You don't have access to that spell!")
+                        magick = False
+                if player_mp == 0 and stats != barbarian:
+                    print("You don't have enough mana to cast spells.")
+                else:
+                    print("You're a barbarian, you don't need spells!")
             #switch up the attacks to defense while the enemy has health under half
             elif action == "Attack" and enemy_hp < (enemy_maxhp * .5):
                 print("-"*40)
@@ -672,6 +677,7 @@ while Player == True:
                 if potion_name1 !="" and potion_name2 != "":
                     potion_use = ""
                     print("-"*40)
+<<<<<<< HEAD
                     print("You have a",potion_name1,"and a",potion_name2,"to use. Which would you like to use?")
                     print("Which potion slot would you like to use? (1 or 2): ")
                     potion = input()
@@ -720,48 +726,116 @@ while Player == True:
                         if potion_use == potion_name2:
                             potion_name2 = ""
                         print("-"*40)
+=======
+                    print("You have a",potion_name1,"and a",potion_name2,"to use. Which would you like to use? Slot 1 or Slot 2:")
+                    print("Please enter the numbered slot you'd like to use (1/2):")
+                    potion_num = int(input())
+                    if potion_num == 1:
+                        if potion_name1 == "Health Potion":
+                            print("You uncap the potion and tip it back, it closes your wounds and helps you feel re-energized! It also tastes like cherries!")
+                            player_hp = player_hp + potion_effect[1]
+                            print("You healed 10 HP! You now have", player_hp,"HP")
+                            potion_name1 = ""
+                            print("-"*40)
+                            
+                        elif potion_name1 == "Mana Potion":
+                            print("You uncap the potion and tip it back, it rejuvinizes your mana reserves. It tastes like blueberries!")
+                            player_mp = player_mp + potion_effect[2]
+                            print("You restored 10 MP! You now have",player_mp,"MP")
+                            potion_name1 = ""
+                            print("-"*40)
+                            
+                        elif potion_name1 == "Fire Potion":
+                            print("You take out the vial of liquid fire and throw it at the",enemy_name,". It explodes and covers the floor with fire!")
+                            enemy_hp = enemy_hp + (potion_effect[3]*-1)
+                            print("The",enemy_name,"takes 5 Fire damage! The",enemy_name,"has",enemy_hp,"left.")
+                            potion_name1 = ""
+                            print("-"*40)
+                            
+                        elif potion_name1 == "Ice Potion":
+                            print("You take out the vial of frozen crystals and throw it at the",enemy_name,". It explodes and a hail of ice comes out!")
+                            enemy_hp = enemy_hp + (potion_effect[3]*-1)
+                            print("The",enemy_name,"takes 7 Ice damage! The",enemy_name,"has",enemy_hp,"left.")
+                            potion_name1 = ""
+                            print("-"*40)
+                            
+                    elif potion_num == 2:
+                        if potion_name2 == "Health Potion":
+                            print("You uncap the potion and tip it back, it closes your wounds and helps you feel re-energized! It also tastes like cherries!")
+                            player_hp = player_hp + potion_effect[1]
+                            print("You healed 10 HP! You now have", player_hp,"HP")
+                            potion_name2 = ""
+                            print("-"*40)
+                            
+                        elif potion_name2 == "Mana Potion":
+                            print("You uncap the potion and tip it back, it rejuvinizes your mana reserves. It tastes like blueberries!")
+                            player_mp = player_mp + potion_effect[2]
+                            print("You restored 10 MP! You now have",player_mp,"MP")
+                            potion_name2 = ""
+                            print("-"*40)
+                            
+                        elif potion_name2 == "Fire Potion":
+                            print("You take out the vial of liquid fire and throw it at the",enemy_name,". It explodes and covers the floor with fire!")
+                            enemy_hp = enemy_hp + (potion_effect[3]*-1)
+                            print("The",enemy_name,"takes 5 Fire damage! The",enemy_name,"has",enemy_hp,"left.")
+                            potion_name2 = ""
+                            print("-"*40)
+                            
+                        elif potion_name2 == "Ice Potion":
+                            print("You take out the vial of frozen crystals and throw it at the",enemy_name,". It explodes and a hail of ice comes out!")
+                            enemy_hp = enemy_hp + (potion_effect[3]*-1)
+                            print("The",enemy_name,"takes 7 Ice damage! The",enemy_name,"has",enemy_hp,"left.")
+                            potion_name2 = ""
+                            
+                            print("-"*40)
+>>>>>>> 866ca52 (potions have been fixed)
                     else:
-                        print("You don't have that potion.")
+                        print("Please choose a number associated with the potion slots.")
                         print("-"*40)
                 elif potion_name1 != "" and potion_name2 == "":
                     print("-"*40)
                     print("You have a",potion_name1,"to use.")
+<<<<<<< HEAD
                     print("Would you like to use this potion? (y/n):")
+=======
+                    print("Would you like to use the potion in this slot? (yes/no):")
+>>>>>>> 866ca52 (potions have been fixed)
                     potion_use = input()
                     if potion_use == "Y" or potion_use == "y":
                         if potion_name1 == potions[0]:
                             print("You uncap the potion and tip it back, it closes your wounds and helps you feel re-energized! It also tastes like cherries!")
                             player_hp = player_hp + potion_effect[0]
                             print("You healed 10 HP! You now have", player_hp,"HP")
-                            if potion_use == potion_name1:
-                                potion_name1 = ""
+
+                            potion_name1 = ""
                             print("-"*40)
                         elif potion_name1 == potions[1]:
                             print("You uncap the potion and tip it back, it rejuvinizes your mana reserves. It tastes like blueberries!")
                             player_mp = player_mp + potion_effect[1]
                             print("You restored 10 MP! You now have",player_mp,"MP")
-                            if potion_use == potion_name1:
-                                potion_name1 = ""
+
+                            potion_name1 = ""
                             print("-"*40)
                         elif potion_name1 == potions[2]:
                             print("You take out the vial of liquid fire and throw it at the",enemy_name,". It explodes and covers the floor with fire!")
                             enemy_hp = enemy_hp + (potion_effect[2]*-1)
                             print("The",enemy_name,"takes 5 Fire damage! The",enemy_name,"has",enemy_hp,"left.")
-                            if potion_use == potion_name1:
-                                potion_name1 = ""
+
+                            potion_name1 = ""
                             print("-"*40)
                         elif potion_name1 == potions[3]:
                             print("You take out the vial of frozen crystals and throw it at the",enemy_name,". It explodes and a hail of ice comes out!")
                             enemy_hp = enemy_hp + (potion_effect[3]*-1)
                             print("The",enemy_name,"takes 7 Ice damage! The",enemy_name,"has",enemy_hp,"left.")
-                            if potion_use == potion_name1:
-                                potion_name1 = ""
+
+                            potion_name1 = ""
                             print("-"*40)
                         
                             
                 elif potion_name1 =="" and potion_name2 != "":
                     print("-"*40)
                     print("You have a",potion_name2,"to use.")
+<<<<<<< HEAD
                     print("Would you like to use this potion?: (y/n)")
                     potion_use = input()
                     if potion_use == "Y" or potion_use == "y":
@@ -793,6 +867,36 @@ while Player == True:
                             if potion_use == potion_name2:
                                 potion_name2 = ""
                             print("-"*40)
+=======
+                    print("Would you like to use the potion in this slot? (yes/no):")
+                    potion_use = input()
+                    if potion_use == "Yes" or potion_use == "yes":
+                        if potion_name2 == "Health Potion":
+                            print("You uncap the potion and tip it back, it closes your wounds and helps you feel re-energized! It also tastes like cherries!")
+                            player_hp = player_hp + potion_effect[1]
+                            print("You healed 10 HP! You now have", player_hp,"HP")
+                            potion_name2 = ""
+                            print("-"*40)
+                        elif potion_name2 == "Mana Potion":
+                            print("You uncap the potion and tip it back, it rejuvinizes your mana reserves. It tastes like blueberries!")
+                            player_mp = player_mp + potion_effect[2]
+                            print("You restored 10 MP! You now have",player_mp,"MP")
+                            potion_name2 = ""
+                            print("-"*40)
+                        elif potion_name2 == "Fire Potion":
+                            print("You take out the vial of liquid fire and throw it at the",enemy_name,". It explodes and covers the floor with fire!")
+                            enemy_hp = enemy_hp + (potion_effect[3]*-1)
+                            print("The",enemy_name,"takes 5 Fire damage! The",enemy_name,"has",enemy_hp,"left.")
+                            potion_name2 = ""
+                            print("-"*40)
+                        elif potion_name1 == "Ice Potion":
+                            print("You take out the vial of frozen crystals and throw it at the",enemy_name,". It explodes and a hail of ice comes out!")
+                            enemy_hp = enemy_hp + (potion_effect[3]*-1)
+                            print("The",enemy_name,"takes 7 Ice damage! The",enemy_name,"has",enemy_hp,"left.")
+                            potion_name2 = ""
+                            print("-"*40)
+                                            
+>>>>>>> 866ca52 (potions have been fixed)
                 elif potion_name1 == "" and potion_name2 == "":
                     print("You don't have any potions to use. Please pick something else.")
                     print("-"*40)
