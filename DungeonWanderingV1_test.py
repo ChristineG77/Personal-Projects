@@ -677,7 +677,7 @@ while Player == True:
                 if potion_name1 !="" and potion_name2 != "":
                     potion_use = ""
                     print("-"*40)
-<<<<<<< HEAD
+
                     print("You have a",potion_name1,"and a",potion_name2,"to use. Which would you like to use?")
                     print("Which potion slot would you like to use? (1 or 2): ")
                     potion = input()
@@ -726,7 +726,7 @@ while Player == True:
                         if potion_use == potion_name2:
                             potion_name2 = ""
                         print("-"*40)
-=======
+
                     print("You have a",potion_name1,"and a",potion_name2,"to use. Which would you like to use? Slot 1 or Slot 2:")
                     print("Please enter the numbered slot you'd like to use (1/2):")
                     potion_num = int(input())
@@ -788,18 +788,18 @@ while Player == True:
                             potion_name2 = ""
                             
                             print("-"*40)
->>>>>>> 866ca52 (potions have been fixed)
+
                     else:
                         print("Please choose a number associated with the potion slots.")
                         print("-"*40)
                 elif potion_name1 != "" and potion_name2 == "":
                     print("-"*40)
                     print("You have a",potion_name1,"to use.")
-<<<<<<< HEAD
+
                     print("Would you like to use this potion? (y/n):")
-=======
+
                     print("Would you like to use the potion in this slot? (yes/no):")
->>>>>>> 866ca52 (potions have been fixed)
+
                     potion_use = input()
                     if potion_use == "Y" or potion_use == "y":
                         if potion_name1 == potions[0]:
@@ -835,7 +835,7 @@ while Player == True:
                 elif potion_name1 =="" and potion_name2 != "":
                     print("-"*40)
                     print("You have a",potion_name2,"to use.")
-<<<<<<< HEAD
+
                     print("Would you like to use this potion?: (y/n)")
                     potion_use = input()
                     if potion_use == "Y" or potion_use == "y":
@@ -867,7 +867,7 @@ while Player == True:
                             if potion_use == potion_name2:
                                 potion_name2 = ""
                             print("-"*40)
-=======
+
                     print("Would you like to use the potion in this slot? (yes/no):")
                     potion_use = input()
                     if potion_use == "Yes" or potion_use == "yes":
@@ -896,7 +896,7 @@ while Player == True:
                             potion_name2 = ""
                             print("-"*40)
                                             
->>>>>>> 866ca52 (potions have been fixed)
+
                 elif potion_name1 == "" and potion_name2 == "":
                     print("You don't have any potions to use. Please pick something else.")
                     print("-"*40)
