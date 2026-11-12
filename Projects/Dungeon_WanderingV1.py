@@ -491,7 +491,7 @@ while Player == True:
                 print("-"*40)
 # move all the changes from magick to the other magick!
             elif action == "Magick" and enemy_hp >= (enemy_maxhp *.5):
-                if stats == barbarian:
+                if stats != barbarian:
                     magick = True
                     while magick == True and player_mp != 0:  #trying new while statement to check for mp
                         spell = input("Which spell will you use? ")
@@ -585,7 +585,7 @@ while Player == True:
                             magick = False
                 else:
                     print("You're a Barbarian! You don't need spells!")
-                    magick == False            
+                    
                 #print("You don't have enough mana to cast spells.")
             #switch up the attacks to defense while the enemy has health under half
             elif action == "Attack" and enemy_hp < (enemy_maxhp * .5):
@@ -611,7 +611,7 @@ while Player == True:
         #need another if statement for if an enemy attack bounces off the player
                 
             elif action == "Magick" and enemy_hp < (enemy_maxhp *.5):
-                if stats == barbarian:
+                if stats != barbarian:
                     magick = True
                     while magick == True and player_mp != 0:  #trying new while statement to check for mp
                         spell = input("Which spell will you use? ")
@@ -708,7 +708,7 @@ while Player == True:
                             magick = False
                 else:
                     print("You're a Barbarian! You don't need spells!")
-                    magick == False
+                    
 
             elif action == "Potion":
                 if potion_name1 !="" and potion_name2 != "":
@@ -959,7 +959,7 @@ while Player == True:
                 print("-"*40)
 # move all the changes from magick to the other magick!
             elif action == "Magick" and enemy_hp >= (enemy_maxhp *.5):
-                if stats == barbarian:
+                if stats != barbarian:
                     magick = True
                     while magick == True and player_mp != 0:  #trying new while statement to check for mp
                         spell = input("Which spell will you use? ")
@@ -1053,7 +1053,7 @@ while Player == True:
                             magick = False
                 else:
                     print("You're a Barbarian! You don't need spells!")
-                    magick == False            
+                    
                 #print("You don't have enough mana to cast spells.")
             #switch up the attacks to defense while the enemy has health under half
             elif action == "Attack" and enemy_hp < (enemy_maxhp * .5):
@@ -1079,7 +1079,7 @@ while Player == True:
         #need another if statement for if an enemy attack bounces off the player
                 
             elif action == "Magick" and enemy_hp < (enemy_maxhp *.5):
-                if stats == barbarian:
+                if stats != barbarian:
                     magick = True
                     while magick == True and player_mp != 0:  #trying new while statement to check for mp
                         spell = input("Which spell will you use? ")
@@ -1176,7 +1176,7 @@ while Player == True:
                             magick = False
                 else:
                     print("You're a Barbarian! You don't need spells!")
-                    magick == False
+                    
             elif action == "Potion":
                 if potion_name1 !="" and potion_name2 != "":
                     potion_use = ""
@@ -1426,7 +1426,7 @@ while Player == True:
                 print("-"*40)
 # move all the changes from magick to the other magick!
             elif action == "Magick" and enemy_hp >= (enemy_maxhp *.5):
-                if stats == barbarian:
+                if stats != barbarian:
                     magick = True
                     while magick == True and player_mp != 0:  #trying new while statement to check for mp
                         spell = input("Which spell will you use? ")
@@ -1520,7 +1520,6 @@ while Player == True:
                             magick = False
                 else:
                     print("You're a Barbarian! You don't need spells!")
-                    magick == False            
                 #print("You don't have enough mana to cast spells.")
             #switch up the attacks to defense while the enemy has health under half
             elif action == "Attack" and enemy_hp < (enemy_maxhp * .5):
@@ -1546,7 +1545,7 @@ while Player == True:
         #need another if statement for if an enemy attack bounces off the player
                 
             elif action == "Magick" and enemy_hp < (enemy_maxhp *.5):
-                if stats == barbarian:
+                if stats != barbarian:
                     magick = True
                     while magick == True and player_mp != 0:  #trying new while statement to check for mp
                         spell = input("Which spell will you use? ")
@@ -1643,7 +1642,7 @@ while Player == True:
                             magick = False
                 else:
                     print("You're a Barbarian! You don't need spells!")
-                    magick == False
+                    
             elif action == "Potion":
                 if potion_name1 !="" and potion_name2 != "":
                     potion_use = ""
@@ -1844,7 +1843,7 @@ while Player == True:
                 print("-"*40)
 # move all the changes from magick to the other magick!
             elif action == "Magick" and enemy_hp >= (enemy_maxhp *.5):
-                if stats == barbarian:
+                if stats != barbarian:
                     magick = True
                     while magick == True and player_mp != 0:  #trying new while statement to check for mp
                         spell = input("Which spell will you use? ")
@@ -1941,7 +1940,7 @@ while Player == True:
                             magick = False
                 else:
                     print("You're a Barbarian! You don't need spells!")
-                    magick == False
+                    
                 #print("You don't have enough mana to cast spells.")
             #switch up the attacks to defense while the enemy has health under half
             elif action == "Attack" and enemy_hp < (enemy_maxhp * .5):
@@ -1967,7 +1966,7 @@ while Player == True:
         #need another if statement for if an enemy attack bounces off the player
                 
             elif action == "Magick" and enemy_hp < (enemy_maxhp *.5):
-                if stats == barbarian:
+                if stats != barbarian:
                     magick = True
                     while magick == True and player_mp != 0:  #trying new while statement to check for mp
                         spell = input("Which spell will you use? ")
@@ -2064,7 +2063,7 @@ while Player == True:
                             magick = False
                 else:
                     print("You're a Barbarian! You don't need spells!")
-                    magick == False
+                    
             elif action == "Potion":
                 if potion_name1 !="" and potion_name2 != "":
                     potion_use = ""
