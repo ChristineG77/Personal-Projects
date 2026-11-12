@@ -5,7 +5,7 @@
 
 #Establish classes and their stats
 barbarian={'ATK':3,'DEF':4,'HP':40,'MP':0}
-cleric={'ATK':1,'DEF':2,'HP':20,'MP':10}
+cleric={'ATK':1,'DEF':2,'HP':20,'MP':20}
 fighter={'ATK':2,'DEF':3,'HP':30,'MP':8}
 Classes =[]
 Classes.append(barbarian)
@@ -63,11 +63,11 @@ potion_prices = [hPrice,mPrice,fPrice,iPrice]
 #Establish enemy variables and stats using lists these are constants
 #enemies: orc, gnome,elemental,fairy
 Enemy = ["Orc","Gnome","Fairy","Elemental","King Slime"]
-orc = {'ATK':6, 'DEF':4, 'HP':20,'MP':0}
+orc = {'ATK':6, 'DEF':6, 'HP':20,'MP':0}
 gnome = {'ATK':4, 'DEF':2, 'HP':10,'MP':3}
 elemental = {'ATK':1, 'DEF':5, 'HP':5,'MP':10}
 fairy = {'ATK':2, 'DEF':3, 'HP':15,'MP':5}
-king_slime = {'ATK':8, 'DEF':4, 'HP':45,'MP':0}
+king_slime = {'ATK':8, 'DEF':6, 'HP':45,'MP':0}
 
 Enemies = []
 Enemies.append(orc)
@@ -370,10 +370,10 @@ while Player == True:
     
 
     #make an if statement for if someone doesnt buy a weapon or armor
-        max_dmg = weapon_dmg * stats['ATK']
-        player_dmg = weapon_dmg * stats['ATK']
-        max_def = armor_def * stats['DEF']
-        player_def = armor_def * stats['DEF']
+        max_dmg = weapon_dmg + stats['ATK']
+        player_dmg = weapon_dmg + stats['ATK']
+        max_def = armor_def + stats['DEF']
+        player_def = armor_def + stats['DEF']
         max_hp = stats['HP']
         player_hp = stats['HP']
         max_mp = stats['MP']
@@ -491,40 +491,58 @@ while Player == True:
                 print("-"*40)
 # move all the changes from magick to the other magick!
             elif action == "Magick" and enemy_hp >= (enemy_maxhp *.5):
-                magick = True
-                while magick == True and player_mp != 0:  #trying new while statement to check for mp
-                    spell = input("Which spell will you use? ")
-                    print()
-                    if spell == "Heal":
-                        if stats == cleric:
+                if stats == barbarian:
+                    magick = True
+                    while magick == True and player_mp != 0:  #trying new while statement to check for mp
+                        spell = input("Which spell will you use? ")
+                        print()
+                        if spell == "Heal":
+                            if stats == cleric:
 
-                            if max_hp == player_hp:
-                                choice = input("Are you sure you want to use this spell?\n You're still at full HP. (Yes/No)")
-                                if choice == "Yes" or choice == "yes":
+                                if max_hp == player_hp:
+                                    choice = input("Are you sure you want to use this spell?\n You're still at full HP. (Yes/No)")
+                                    if choice == "Yes" or choice == "yes":
+                                        if player_mp > 0 and player_mp >= healcost:
+                                            print("-"*40)
+                                            print("You used Heal! But you are at full health already...Oh well!")
+                                            player_mp = player_mp - healcost
+                                            
+                                            print("You have",player_mp,"MP left.")
+                                            print("The",enemy_name,"attacks you!")
+                                            
+                                            player_hp = player_hp - enemy_atk
+                                            print("You have",player_hp,"HP left!")
+                                            print("-"*40)
+                                            magick == False
+                                        else:
+                                            print("You don't have enough mana to cast this spell!")
+                                    else:
+                                        print("Alright then, choose again.")
+                                        magick == True
+                                else:
                                     if player_mp > 0 and player_mp >= healcost:
+                                        player_hp = Heal + player_hp
                                         print("-"*40)
-                                        print("You used Heal! But you are at full health already...Oh well!")
+                                        print("You healed 5 HP! You're current health is",player_hp)
                                         player_mp = player_mp - healcost
-                                        
                                         print("You have",player_mp,"MP left.")
                                         print("The",enemy_name,"attacks you!")
-                                        
                                         player_hp = player_hp - enemy_atk
-                                        print("You have",player_hp,"HP left!")
+                                        print("You have ",player_hp,"HP left!")
                                         print("-"*40)
-                                        magick == False
+                                        magick = False
                                     else:
                                         print("You don't have enough mana to cast this spell!")
-                                else:
-                                    print("Alright then, choose again.")
-                                    magick == True
                             else:
-                                if player_mp > 0 and player_mp >= healcost:
-                                    player_hp = Heal + player_hp
+                                print("You're not a Cleric, you don't have access to this spell!")
+                                magick = False
+                        elif spell == "Holy":
+                            if stats == cleric:
+                                if player_mp > 0 and player_mp >= holycost:
+                                    enemy_hp = enemy_hp + Holy
                                     print("-"*40)
-                                    print("You healed 5 HP! You're current health is",player_hp)
-                                    player_mp = player_mp - healcost
-                                    print("You have",player_mp,"MP left.")
+                                    player_mp = player_mp - holycost
+                                    print(f"The enemy has {enemy_hp:.0f} HP left")
                                     print("The",enemy_name,"attacks you!")
                                     player_hp = player_hp - enemy_atk
                                     print("You have ",player_hp,"HP left!")
@@ -532,56 +550,42 @@ while Player == True:
                                     magick = False
                                 else:
                                     print("You don't have enough mana to cast this spell!")
-                        else:
-                            print("You're not a Cleric, you don't have access to this spell!")
-                            magick = False
-                    elif spell == "Holy":
-                        if stats == cleric:
-                            if player_mp > 0 and player_mp >= holycost:
-                                enemy_hp = enemy_hp + Holy
-                                print("-"*40)
-                                player_mp = player_mp - holycost
-                                print(f"The enemy has {enemy_hp:.0f} HP left")
-                                print("The",enemy_name,"attacks you!")
-                                player_hp = player_hp - enemy_atk
-                                print("You have ",player_hp,"HP left!")
-                                print("-"*40)
-                                magick = False
                             else:
-                                print("You don't have enough mana to cast this spell!")
-                        else:
-                            print("You're not a Cleric, you don't have access to this spell!")
-                            magick = False
-                    elif spell == "Barrier":
-                        if stats == fighter:
-                            if player_mp > 0 and player_mp >= holycost:
-                                player_def = player_def + Barrier
-                                print("-"*40)
-                                player_mp = player_mp - barriercost
-                                print("The",enemy_name,"attacks you!")
-                                print("You have",player_mp,"MP left!")
-                                if player_def < enemy_atk:
-                                    player_hp = player_hp - (player_def - enemy_atk)
-                                    print("You have ",player_hp,"HP left!")
-                                    print(f"The enemy has {enemy_hp:.0f} HP left")
-                                    player_def = max_def
-                                    magick = False
-                                elif player_def > enemy_atk:
-                                    print("The",enemy_name,"attack bounces off your armor. You have ",player_hp,"HP left!")
-                                    print(f"The enemy has {enemy_hp:.0f} HP left")
-                                    player_def = max_def
+                                print("You're not a Cleric, you don't have access to this spell!")
+                                magick = False
+                        elif spell == "Barrier":
+                            if stats == fighter:
+                                if player_mp > 0 and player_mp >= holycost:
+                                    player_def = player_def + Barrier
+                                    print("-"*40)
+                                    player_mp = player_mp - barriercost
+                                    print("The",enemy_name,"attacks you!")
+                                    print("You have",player_mp,"MP left!")
+                                    if player_def < enemy_atk:
+                                        player_hp = player_hp - (player_def - enemy_atk)
+                                        print("You have ",player_hp,"HP left!")
+                                        print(f"The enemy has {enemy_hp:.0f} HP left")
+                                        player_def = max_def
+                                        magick = False
+                                    elif player_def > enemy_atk:
+                                        print("The",enemy_name,"attack bounces off your armor. You have ",player_hp,"HP left!")
+                                        print(f"The enemy has {enemy_hp:.0f} HP left")
+                                        player_def = max_def
+                                        magick = False
+                                else:
+                                    print("You don't have enough mana to cast this spell!")
+                                    print(f"The enemy has{enemy_hp:.0f} HP left")
+                                    print("-"*40)
                                     magick = False
                             else:
-                                print("You don't have enough mana to cast this spell!")
-                                print(f"The enemy has{enemy_hp:.0f} HP left")
-                                print("-"*40)
+                                print("You're not a Fighter, you don't have access to this spell!")
                                 magick = False
                         else:
-                            print("You're not a Fighter, you don't have access to this spell!")
+                            print("You don't have any MP to cast spells!")
                             magick = False
-                    else:
-                        print("You don't have any MP to cast spells!")
-                        magick = False
+                else:
+                    print("You're a Barbarian! You don't need spells!")
+                    magick == False            
                 #print("You don't have enough mana to cast spells.")
             #switch up the attacks to defense while the enemy has health under half
             elif action == "Attack" and enemy_hp < (enemy_maxhp * .5):
@@ -607,41 +611,60 @@ while Player == True:
         #need another if statement for if an enemy attack bounces off the player
                 
             elif action == "Magick" and enemy_hp < (enemy_maxhp *.5):
-                magick = True
-                while magick == True and player_mp != 0:  #trying new while statement to check for mp
-                    spell = input("Which spell will you use? ")
-                    print()
-                    if spell == "Heal":
-                        if stats == cleric:
+                if stats == barbarian:
+                    magick = True
+                    while magick == True and player_mp != 0:  #trying new while statement to check for mp
+                        spell = input("Which spell will you use? ")
+                        print()
+                        if spell == "Heal":
+                            if stats == cleric:
 
-                            if max_hp == player_hp:
-                                choice = input("Are you sure you want to use this spell?\n You're still at full HP. (Yes/No)")
-                                if choice == "Yes" or choice == "yes":
+                                if max_hp == player_hp:
+                                    choice = input("Are you sure you want to use this spell?\n You're still at full HP. (Yes/No)")
+                                    if choice == "Yes" or choice == "yes":
+                                        if player_mp > 0 and player_mp >= healcost:
+                                            print("-"*40)
+                                            print("You used Heal! But you are at full health already...Oh well!")
+                                            player_mp = player_mp - healcost
+                                            
+                                            print("You have",player_mp,"MP left.")
+                                            print("The",enemy_name,"attacks you!")
+                                            
+                                            player_hp = player_hp - enemy_atk
+                                            print("You have",player_hp,"HP left!")
+                                            print("-"*40)
+                                            magick == False
+                                        else:
+                                            print("You don't have enough mana to cast this spell!")
+                                            magick == False
+                                    else:
+                                        print("Alright then, choose again.")
+                                        magick == True
+                                else:
                                     if player_mp > 0 and player_mp >= healcost:
+                                        player_hp = Heal + player_hp
                                         print("-"*40)
-                                        print("You used Heal! But you are at full health already...Oh well!")
+                                        print("You healed 5 HP! You're current health is",player_hp)
                                         player_mp = player_mp - healcost
-                                        
                                         print("You have",player_mp,"MP left.")
                                         print("The",enemy_name,"attacks you!")
-                                        
                                         player_hp = player_hp - enemy_atk
-                                        print("You have",player_hp,"HP left!")
+                                        print("You have ",player_hp,"HP left!")
                                         print("-"*40)
-                                        magick == False
+                                        magick = False
                                     else:
                                         print("You don't have enough mana to cast this spell!")
                                         magick == False
-                                else:
-                                    print("Alright then, choose again.")
-                                    magick == True
                             else:
-                                if player_mp > 0 and player_mp >= healcost:
-                                    player_hp = Heal + player_hp
+                                print("You're not a Cleric, you don't have access to this spell!")
+                                magick = False
+                        elif spell == "Holy":
+                            if stats == cleric:
+                                if player_mp > 0 and player_mp >= holycost:
+                                    enemy_hp = enemy_hp + Holy
                                     print("-"*40)
-                                    print("You healed 5 HP! You're current health is",player_hp)
-                                    player_mp = player_mp - healcost
-                                    print("You have",player_mp,"MP left.")
+                                    player_mp = player_mp - holycost
+                                    print(f"The enemy has {enemy_hp:.0f} HP left")
                                     print("The",enemy_name,"attacks you!")
                                     player_hp = player_hp - enemy_atk
                                     print("You have ",player_hp,"HP left!")
@@ -650,57 +673,42 @@ while Player == True:
                                 else:
                                     print("You don't have enough mana to cast this spell!")
                                     magick == False
-                        else:
-                            print("You're not a Cleric, you don't have access to this spell!")
-                            magick = False
-                    elif spell == "Holy":
-                        if stats == cleric:
-                            if player_mp > 0 and player_mp >= holycost:
-                                enemy_hp = enemy_hp + Holy
-                                print("-"*40)
-                                player_mp = player_mp - holycost
-                                print(f"The enemy has {enemy_hp:.0f} HP left")
-                                print("The",enemy_name,"attacks you!")
-                                player_hp = player_hp - enemy_atk
-                                print("You have ",player_hp,"HP left!")
-                                print("-"*40)
-                                magick = False
                             else:
-                                print("You don't have enough mana to cast this spell!")
-                                magick == False
-                        else:
-                            print("You're not a Cleric, you don't have access to this spell!")
-                            magick = False
-                    elif spell == "Barrier":
-                        if stats == fighter:
-                            if player_mp > 0 and player_mp >= holycost:
-                                player_def = player_def + Barrier
-                                print("-"*40)
-                                player_mp = player_mp - barriercost
-                                print("The",enemy_name,"attacks you!")
-                                print("You have",player_mp,"MP left!")
-                                if player_def < enemy_atk:
-                                    player_hp = player_hp - (player_def - enemy_atk)
-                                    print("You have ",player_hp,"HP left!")
-                                    print(f"The enemy has {enemy_hp:.0f} HP left")
-                                    player_def = max_def
-                                    magick = False
-                                elif player_def > enemy_atk:
-                                    print("The",enemy_name,"attack bounces off your armor. You have ",player_hp,"HP left!")
-                                    print(f"The enemy has {enemy_hp:.0f} HP left")
-                                    player_def = max_def
+                                print("You're not a Cleric, you don't have access to this spell!")
+                                magick = False
+                        elif spell == "Barrier":
+                            if stats == fighter:
+                                if player_mp > 0 and player_mp >= holycost:
+                                    player_def = player_def + Barrier
+                                    print("-"*40)
+                                    player_mp = player_mp - barriercost
+                                    print("The",enemy_name,"attacks you!")
+                                    print("You have",player_mp,"MP left!")
+                                    if player_def < enemy_atk:
+                                        player_hp = player_hp - (player_def - enemy_atk)
+                                        print("You have ",player_hp,"HP left!")
+                                        print(f"The enemy has {enemy_hp:.0f} HP left")
+                                        player_def = max_def
+                                        magick = False
+                                    elif player_def > enemy_atk:
+                                        print("The",enemy_name,"attack bounces off your armor. You have ",player_hp,"HP left!")
+                                        print(f"The enemy has {enemy_hp:.0f} HP left")
+                                        player_def = max_def
+                                        magick = False
+                                else:
+                                    print("You don't have enough mana to cast this spell!")
+                                    print(f"The enemy has{enemy_hp:.0f} HP left")
+                                    print("-"*40)
                                     magick = False
                             else:
-                                print("You don't have enough mana to cast this spell!")
-                                print(f"The enemy has{enemy_hp:.0f} HP left")
-                                print("-"*40)
+                                print("You're not a Fighter, you don't have access to this spell!")
                                 magick = False
                         else:
-                            print("You're not a Fighter, you don't have access to this spell!")
+                            print("You don't have any MP to cast spells!")
                             magick = False
-                    else:
-                        print("You don't have any MP to cast spells!")
-                        magick = False
+                else:
+                    print("You're a Barbarian! You don't need spells!")
+                    magick == False
 
             elif action == "Potion":
                 if potion_name1 !="" and potion_name2 != "":
@@ -951,40 +959,58 @@ while Player == True:
                 print("-"*40)
 # move all the changes from magick to the other magick!
             elif action == "Magick" and enemy_hp >= (enemy_maxhp *.5):
-                magick = True
-                while magick == True and player_mp != 0:  #trying new while statement to check for mp
-                    spell = input("Which spell will you use? ")
-                    print()
-                    if spell == "Heal":
-                        if stats == cleric:
+                if stats == barbarian:
+                    magick = True
+                    while magick == True and player_mp != 0:  #trying new while statement to check for mp
+                        spell = input("Which spell will you use? ")
+                        print()
+                        if spell == "Heal":
+                            if stats == cleric:
 
-                            if max_hp == player_hp:
-                                choice = input("Are you sure you want to use this spell?\n You're still at full HP. (Yes/No)")
-                                if choice == "Yes" or choice == "yes":
+                                if max_hp == player_hp:
+                                    choice = input("Are you sure you want to use this spell?\n You're still at full HP. (Yes/No)")
+                                    if choice == "Yes" or choice == "yes":
+                                        if player_mp > 0 and player_mp >= healcost:
+                                            print("-"*40)
+                                            print("You used Heal! But you are at full health already...Oh well!")
+                                            player_mp = player_mp - healcost
+                                            
+                                            print("You have",player_mp,"MP left.")
+                                            print("The",enemy_name,"attacks you!")
+                                            
+                                            player_hp = player_hp - enemy_atk
+                                            print("You have",player_hp,"HP left!")
+                                            print("-"*40)
+                                            magick == False
+                                        else:
+                                            print("You don't have enough mana to cast this spell!")
+                                    else:
+                                        print("Alright then, choose again.")
+                                        magick == True
+                                else:
                                     if player_mp > 0 and player_mp >= healcost:
+                                        player_hp = Heal + player_hp
                                         print("-"*40)
-                                        print("You used Heal! But you are at full health already...Oh well!")
+                                        print("You healed 5 HP! You're current health is",player_hp)
                                         player_mp = player_mp - healcost
-                                        
                                         print("You have",player_mp,"MP left.")
                                         print("The",enemy_name,"attacks you!")
-                                        
                                         player_hp = player_hp - enemy_atk
-                                        print("You have",player_hp,"HP left!")
+                                        print("You have ",player_hp,"HP left!")
                                         print("-"*40)
-                                        magick == False
+                                        magick = False
                                     else:
                                         print("You don't have enough mana to cast this spell!")
-                                else:
-                                    print("Alright then, choose again.")
-                                    magick == True
                             else:
-                                if player_mp > 0 and player_mp >= healcost:
-                                    player_hp = Heal + player_hp
+                                print("You're not a Cleric, you don't have access to this spell!")
+                                magick = False
+                        elif spell == "Holy":
+                            if stats == cleric:
+                                if player_mp > 0 and player_mp >= holycost:
+                                    enemy_hp = enemy_hp + Holy
                                     print("-"*40)
-                                    print("You healed 5 HP! You're current health is",player_hp)
-                                    player_mp = player_mp - healcost
-                                    print("You have",player_mp,"MP left.")
+                                    player_mp = player_mp - holycost
+                                    print(f"The enemy has {enemy_hp:.0f} HP left")
                                     print("The",enemy_name,"attacks you!")
                                     player_hp = player_hp - enemy_atk
                                     print("You have ",player_hp,"HP left!")
@@ -992,56 +1018,42 @@ while Player == True:
                                     magick = False
                                 else:
                                     print("You don't have enough mana to cast this spell!")
-                        else:
-                            print("You're not a Cleric, you don't have access to this spell!")
-                            magick = False
-                    elif spell == "Holy":
-                        if stats == cleric:
-                            if player_mp > 0 and player_mp >= holycost:
-                                enemy_hp = enemy_hp + Holy
-                                print("-"*40)
-                                player_mp = player_mp - holycost
-                                print(f"The enemy has {enemy_hp:.0f} HP left")
-                                print("The",enemy_name,"attacks you!")
-                                player_hp = player_hp - enemy_atk
-                                print("You have ",player_hp,"HP left!")
-                                print("-"*40)
-                                magick = False
                             else:
-                                print("You don't have enough mana to cast this spell!")
-                        else:
-                            print("You're not a Cleric, you don't have access to this spell!")
-                            magick = False
-                    elif spell == "Barrier":
-                        if stats == fighter:
-                            if player_mp > 0 and player_mp >= holycost:
-                                player_def = player_def + Barrier
-                                print("-"*40)
-                                player_mp = player_mp - barriercost
-                                print("The",enemy_name,"attacks you!")
-                                print("You have",player_mp,"MP left!")
-                                if player_def < enemy_atk:
-                                    player_hp = player_hp - (player_def - enemy_atk)
-                                    print("You have ",player_hp,"HP left!")
-                                    print(f"The enemy has {enemy_hp:.0f} HP left")
-                                    player_def = max_def
-                                    magick = False
-                                elif player_def > enemy_atk:
-                                    print("The",enemy_name,"attack bounces off your armor. You have ",player_hp,"HP left!")
-                                    print(f"The enemy has {enemy_hp:.0f} HP left")
-                                    player_def = max_def
+                                print("You're not a Cleric, you don't have access to this spell!")
+                                magick = False
+                        elif spell == "Barrier":
+                            if stats == fighter:
+                                if player_mp > 0 and player_mp >= holycost:
+                                    player_def = player_def + Barrier
+                                    print("-"*40)
+                                    player_mp = player_mp - barriercost
+                                    print("The",enemy_name,"attacks you!")
+                                    print("You have",player_mp,"MP left!")
+                                    if player_def < enemy_atk:
+                                        player_hp = player_hp - (player_def - enemy_atk)
+                                        print("You have ",player_hp,"HP left!")
+                                        print(f"The enemy has {enemy_hp:.0f} HP left")
+                                        player_def = max_def
+                                        magick = False
+                                    elif player_def > enemy_atk:
+                                        print("The",enemy_name,"attack bounces off your armor. You have ",player_hp,"HP left!")
+                                        print(f"The enemy has {enemy_hp:.0f} HP left")
+                                        player_def = max_def
+                                        magick = False
+                                else:
+                                    print("You don't have enough mana to cast this spell!")
+                                    print(f"The enemy has{enemy_hp:.0f} HP left")
+                                    print("-"*40)
                                     magick = False
                             else:
-                                print("You don't have enough mana to cast this spell!")
-                                print(f"The enemy has{enemy_hp:.0f} HP left")
-                                print("-"*40)
+                                print("You're not a Fighter, you don't have access to this spell!")
                                 magick = False
                         else:
-                            print("You're not a Fighter, you don't have access to this spell!")
+                            print("You don't have any MP to cast spells!")
                             magick = False
-                    else:
-                        print("You don't have any MP to cast spells!")
-                        magick = False
+                else:
+                    print("You're a Barbarian! You don't need spells!")
+                    magick == False            
                 #print("You don't have enough mana to cast spells.")
             #switch up the attacks to defense while the enemy has health under half
             elif action == "Attack" and enemy_hp < (enemy_maxhp * .5):
@@ -1067,41 +1079,60 @@ while Player == True:
         #need another if statement for if an enemy attack bounces off the player
                 
             elif action == "Magick" and enemy_hp < (enemy_maxhp *.5):
-                magick = True
-                while magick == True and player_mp != 0:  #trying new while statement to check for mp
-                    spell = input("Which spell will you use? ")
-                    print()
-                    if spell == "Heal":
-                        if stats == cleric:
+                if stats == barbarian:
+                    magick = True
+                    while magick == True and player_mp != 0:  #trying new while statement to check for mp
+                        spell = input("Which spell will you use? ")
+                        print()
+                        if spell == "Heal":
+                            if stats == cleric:
 
-                            if max_hp == player_hp:
-                                choice = input("Are you sure you want to use this spell?\n You're still at full HP. (Yes/No)")
-                                if choice == "Yes" or choice == "yes":
+                                if max_hp == player_hp:
+                                    choice = input("Are you sure you want to use this spell?\n You're still at full HP. (Yes/No)")
+                                    if choice == "Yes" or choice == "yes":
+                                        if player_mp > 0 and player_mp >= healcost:
+                                            print("-"*40)
+                                            print("You used Heal! But you are at full health already...Oh well!")
+                                            player_mp = player_mp - healcost
+                                            
+                                            print("You have",player_mp,"MP left.")
+                                            print("The",enemy_name,"attacks you!")
+                                            
+                                            player_hp = player_hp - enemy_atk
+                                            print("You have",player_hp,"HP left!")
+                                            print("-"*40)
+                                            magick == False
+                                        else:
+                                            print("You don't have enough mana to cast this spell!")
+                                            magick == False
+                                    else:
+                                        print("Alright then, choose again.")
+                                        magick == True
+                                else:
                                     if player_mp > 0 and player_mp >= healcost:
+                                        player_hp = Heal + player_hp
                                         print("-"*40)
-                                        print("You used Heal! But you are at full health already...Oh well!")
+                                        print("You healed 5 HP! You're current health is",player_hp)
                                         player_mp = player_mp - healcost
-                                        
                                         print("You have",player_mp,"MP left.")
                                         print("The",enemy_name,"attacks you!")
-                                        
                                         player_hp = player_hp - enemy_atk
-                                        print("You have",player_hp,"HP left!")
+                                        print("You have ",player_hp,"HP left!")
                                         print("-"*40)
-                                        magick == False
+                                        magick = False
                                     else:
                                         print("You don't have enough mana to cast this spell!")
                                         magick == False
-                                else:
-                                    print("Alright then, choose again.")
-                                    magick == True
                             else:
-                                if player_mp > 0 and player_mp >= healcost:
-                                    player_hp = Heal + player_hp
+                                print("You're not a Cleric, you don't have access to this spell!")
+                                magick = False
+                        elif spell == "Holy":
+                            if stats == cleric:
+                                if player_mp > 0 and player_mp >= holycost:
+                                    enemy_hp = enemy_hp + Holy
                                     print("-"*40)
-                                    print("You healed 5 HP! You're current health is",player_hp)
-                                    player_mp = player_mp - healcost
-                                    print("You have",player_mp,"MP left.")
+                                    player_mp = player_mp - holycost
+                                    print(f"The enemy has {enemy_hp:.0f} HP left")
                                     print("The",enemy_name,"attacks you!")
                                     player_hp = player_hp - enemy_atk
                                     print("You have ",player_hp,"HP left!")
@@ -1110,58 +1141,42 @@ while Player == True:
                                 else:
                                     print("You don't have enough mana to cast this spell!")
                                     magick == False
-                        else:
-                            print("You're not a Cleric, you don't have access to this spell!")
-                            magick = False
-                    elif spell == "Holy":
-                        if stats == cleric:
-                            if player_mp > 0 and player_mp >= holycost:
-                                enemy_hp = enemy_hp + Holy
-                                print("-"*40)
-                                player_mp = player_mp - holycost
-                                print(f"The enemy has {enemy_hp:.0f} HP left")
-                                print("The",enemy_name,"attacks you!")
-                                player_hp = player_hp - enemy_atk
-                                print("You have ",player_hp,"HP left!")
-                                print("-"*40)
-                                magick = False
                             else:
-                                print("You don't have enough mana to cast this spell!")
-                                magick == False
-                        else:
-                            print("You're not a Cleric, you don't have access to this spell!")
-                            magick = False
-                    elif spell == "Barrier":
-                        if stats == fighter:
-                            if player_mp > 0 and player_mp >= holycost:
-                                player_def = player_def + Barrier
-                                print("-"*40)
-                                player_mp = player_mp - barriercost
-                                print("The",enemy_name,"attacks you!")
-                                print("You have",player_mp,"MP left!")
-                                if player_def < enemy_atk:
-                                    player_hp = player_hp - (player_def - enemy_atk)
-                                    print("You have ",player_hp,"HP left!")
-                                    print(f"The enemy has {enemy_hp:.0f} HP left")
-                                    player_def = max_def
-                                    magick = False
-                                elif player_def > enemy_atk:
-                                    print("The",enemy_name,"attack bounces off your armor. You have ",player_hp,"HP left!")
-                                    print(f"The enemy has {enemy_hp:.0f} HP left")
-                                    player_def = max_def
+                                print("You're not a Cleric, you don't have access to this spell!")
+                                magick = False
+                        elif spell == "Barrier":
+                            if stats == fighter:
+                                if player_mp > 0 and player_mp >= holycost:
+                                    player_def = player_def + Barrier
+                                    print("-"*40)
+                                    player_mp = player_mp - barriercost
+                                    print("The",enemy_name,"attacks you!")
+                                    print("You have",player_mp,"MP left!")
+                                    if player_def < enemy_atk:
+                                        player_hp = player_hp - (player_def - enemy_atk)
+                                        print("You have ",player_hp,"HP left!")
+                                        print(f"The enemy has {enemy_hp:.0f} HP left")
+                                        player_def = max_def
+                                        magick = False
+                                    elif player_def > enemy_atk:
+                                        print("The",enemy_name,"attack bounces off your armor. You have ",player_hp,"HP left!")
+                                        print(f"The enemy has {enemy_hp:.0f} HP left")
+                                        player_def = max_def
+                                        magick = False
+                                else:
+                                    print("You don't have enough mana to cast this spell!")
+                                    print(f"The enemy has{enemy_hp:.0f} HP left")
+                                    print("-"*40)
                                     magick = False
                             else:
-                                print("You don't have enough mana to cast this spell!")
-                                print(f"The enemy has{enemy_hp:.0f} HP left")
-                                print("-"*40)
+                                print("You're not a Fighter, you don't have access to this spell!")
                                 magick = False
                         else:
-                            print("You're not a Fighter, you don't have access to this spell!")
+                            print("You don't have any MP to cast spells!")
                             magick = False
-                    else:
-                        print("You don't have any MP to cast spells!")
-                        magick = False
-
+                else:
+                    print("You're a Barbarian! You don't need spells!")
+                    magick == False
             elif action == "Potion":
                 if potion_name1 !="" and potion_name2 != "":
                     potion_use = ""
@@ -1411,40 +1426,58 @@ while Player == True:
                 print("-"*40)
 # move all the changes from magick to the other magick!
             elif action == "Magick" and enemy_hp >= (enemy_maxhp *.5):
-                magick = True
-                while magick == True and player_mp != 0:  #trying new while statement to check for mp
-                    spell = input("Which spell will you use? ")
-                    print()
-                    if spell == "Heal":
-                        if stats == cleric:
+                if stats == barbarian:
+                    magick = True
+                    while magick == True and player_mp != 0:  #trying new while statement to check for mp
+                        spell = input("Which spell will you use? ")
+                        print()
+                        if spell == "Heal":
+                            if stats == cleric:
 
-                            if max_hp == player_hp:
-                                choice = input("Are you sure you want to use this spell?\n You're still at full HP. (Yes/No)")
-                                if choice == "Yes" or choice == "yes":
+                                if max_hp == player_hp:
+                                    choice = input("Are you sure you want to use this spell?\n You're still at full HP. (Yes/No)")
+                                    if choice == "Yes" or choice == "yes":
+                                        if player_mp > 0 and player_mp >= healcost:
+                                            print("-"*40)
+                                            print("You used Heal! But you are at full health already...Oh well!")
+                                            player_mp = player_mp - healcost
+                                            
+                                            print("You have",player_mp,"MP left.")
+                                            print("The",enemy_name,"attacks you!")
+                                            
+                                            player_hp = player_hp - enemy_atk
+                                            print("You have",player_hp,"HP left!")
+                                            print("-"*40)
+                                            magick == False
+                                        else:
+                                            print("You don't have enough mana to cast this spell!")
+                                    else:
+                                        print("Alright then, choose again.")
+                                        magick == True
+                                else:
                                     if player_mp > 0 and player_mp >= healcost:
+                                        player_hp = Heal + player_hp
                                         print("-"*40)
-                                        print("You used Heal! But you are at full health already...Oh well!")
+                                        print("You healed 5 HP! You're current health is",player_hp)
                                         player_mp = player_mp - healcost
-                                        
                                         print("You have",player_mp,"MP left.")
                                         print("The",enemy_name,"attacks you!")
-                                        
                                         player_hp = player_hp - enemy_atk
-                                        print("You have",player_hp,"HP left!")
+                                        print("You have ",player_hp,"HP left!")
                                         print("-"*40)
-                                        magick == False
+                                        magick = False
                                     else:
                                         print("You don't have enough mana to cast this spell!")
-                                else:
-                                    print("Alright then, choose again.")
-                                    magick == True
                             else:
-                                if player_mp > 0 and player_mp >= healcost:
-                                    player_hp = Heal + player_hp
+                                print("You're not a Cleric, you don't have access to this spell!")
+                                magick = False
+                        elif spell == "Holy":
+                            if stats == cleric:
+                                if player_mp > 0 and player_mp >= holycost:
+                                    enemy_hp = enemy_hp + Holy
                                     print("-"*40)
-                                    print("You healed 5 HP! You're current health is",player_hp)
-                                    player_mp = player_mp - healcost
-                                    print("You have",player_mp,"MP left.")
+                                    player_mp = player_mp - holycost
+                                    print(f"The enemy has {enemy_hp:.0f} HP left")
                                     print("The",enemy_name,"attacks you!")
                                     player_hp = player_hp - enemy_atk
                                     print("You have ",player_hp,"HP left!")
@@ -1452,56 +1485,42 @@ while Player == True:
                                     magick = False
                                 else:
                                     print("You don't have enough mana to cast this spell!")
-                        else:
-                            print("You're not a Cleric, you don't have access to this spell!")
-                            magick = False
-                    elif spell == "Holy":
-                        if stats == cleric:
-                            if player_mp > 0 and player_mp >= holycost:
-                                enemy_hp = enemy_hp + Holy
-                                print("-"*40)
-                                player_mp = player_mp - holycost
-                                print(f"The enemy has {enemy_hp:.0f} HP left")
-                                print("The",enemy_name,"attacks you!")
-                                player_hp = player_hp - enemy_atk
-                                print("You have ",player_hp,"HP left!")
-                                print("-"*40)
-                                magick = False
                             else:
-                                print("You don't have enough mana to cast this spell!")
-                        else:
-                            print("You're not a Cleric, you don't have access to this spell!")
-                            magick = False
-                    elif spell == "Barrier":
-                        if stats == fighter:
-                            if player_mp > 0 and player_mp >= holycost:
-                                player_def = player_def + Barrier
-                                print("-"*40)
-                                player_mp = player_mp - barriercost
-                                print("The",enemy_name,"attacks you!")
-                                print("You have",player_mp,"MP left!")
-                                if player_def < enemy_atk:
-                                    player_hp = player_hp - (player_def - enemy_atk)
-                                    print("You have ",player_hp,"HP left!")
-                                    print(f"The enemy has {enemy_hp:.0f} HP left")
-                                    player_def = max_def
-                                    magick = False
-                                elif player_def > enemy_atk:
-                                    print("The",enemy_name,"attack bounces off your armor. You have ",player_hp,"HP left!")
-                                    print(f"The enemy has {enemy_hp:.0f} HP left")
-                                    player_def = max_def
+                                print("You're not a Cleric, you don't have access to this spell!")
+                                magick = False
+                        elif spell == "Barrier":
+                            if stats == fighter:
+                                if player_mp > 0 and player_mp >= holycost:
+                                    player_def = player_def + Barrier
+                                    print("-"*40)
+                                    player_mp = player_mp - barriercost
+                                    print("The",enemy_name,"attacks you!")
+                                    print("You have",player_mp,"MP left!")
+                                    if player_def < enemy_atk:
+                                        player_hp = player_hp - (player_def - enemy_atk)
+                                        print("You have ",player_hp,"HP left!")
+                                        print(f"The enemy has {enemy_hp:.0f} HP left")
+                                        player_def = max_def
+                                        magick = False
+                                    elif player_def > enemy_atk:
+                                        print("The",enemy_name,"attack bounces off your armor. You have ",player_hp,"HP left!")
+                                        print(f"The enemy has {enemy_hp:.0f} HP left")
+                                        player_def = max_def
+                                        magick = False
+                                else:
+                                    print("You don't have enough mana to cast this spell!")
+                                    print(f"The enemy has{enemy_hp:.0f} HP left")
+                                    print("-"*40)
                                     magick = False
                             else:
-                                print("You don't have enough mana to cast this spell!")
-                                print(f"The enemy has{enemy_hp:.0f} HP left")
-                                print("-"*40)
+                                print("You're not a Fighter, you don't have access to this spell!")
                                 magick = False
                         else:
-                            print("You're not a Fighter, you don't have access to this spell!")
+                            print("You don't have any MP to cast spells!")
                             magick = False
-                    else:
-                        print("You don't have any MP to cast spells!")
-                        magick = False
+                else:
+                    print("You're a Barbarian! You don't need spells!")
+                    magick == False            
                 #print("You don't have enough mana to cast spells.")
             #switch up the attacks to defense while the enemy has health under half
             elif action == "Attack" and enemy_hp < (enemy_maxhp * .5):
@@ -1527,41 +1546,60 @@ while Player == True:
         #need another if statement for if an enemy attack bounces off the player
                 
             elif action == "Magick" and enemy_hp < (enemy_maxhp *.5):
-                magick = True
-                while magick == True and player_mp != 0:  #trying new while statement to check for mp
-                    spell = input("Which spell will you use? ")
-                    print()
-                    if spell == "Heal":
-                        if stats == cleric:
+                if stats == barbarian:
+                    magick = True
+                    while magick == True and player_mp != 0:  #trying new while statement to check for mp
+                        spell = input("Which spell will you use? ")
+                        print()
+                        if spell == "Heal":
+                            if stats == cleric:
 
-                            if max_hp == player_hp:
-                                choice = input("Are you sure you want to use this spell?\n You're still at full HP. (Yes/No)")
-                                if choice == "Yes" or choice == "yes":
+                                if max_hp == player_hp:
+                                    choice = input("Are you sure you want to use this spell?\n You're still at full HP. (Yes/No)")
+                                    if choice == "Yes" or choice == "yes":
+                                        if player_mp > 0 and player_mp >= healcost:
+                                            print("-"*40)
+                                            print("You used Heal! But you are at full health already...Oh well!")
+                                            player_mp = player_mp - healcost
+                                            
+                                            print("You have",player_mp,"MP left.")
+                                            print("The",enemy_name,"attacks you!")
+                                            
+                                            player_hp = player_hp - enemy_atk
+                                            print("You have",player_hp,"HP left!")
+                                            print("-"*40)
+                                            magick == False
+                                        else:
+                                            print("You don't have enough mana to cast this spell!")
+                                            magick == False
+                                    else:
+                                        print("Alright then, choose again.")
+                                        magick == True
+                                else:
                                     if player_mp > 0 and player_mp >= healcost:
+                                        player_hp = Heal + player_hp
                                         print("-"*40)
-                                        print("You used Heal! But you are at full health already...Oh well!")
+                                        print("You healed 5 HP! You're current health is",player_hp)
                                         player_mp = player_mp - healcost
-                                        
                                         print("You have",player_mp,"MP left.")
                                         print("The",enemy_name,"attacks you!")
-                                        
                                         player_hp = player_hp - enemy_atk
-                                        print("You have",player_hp,"HP left!")
+                                        print("You have ",player_hp,"HP left!")
                                         print("-"*40)
-                                        magick == False
+                                        magick = False
                                     else:
                                         print("You don't have enough mana to cast this spell!")
                                         magick == False
-                                else:
-                                    print("Alright then, choose again.")
-                                    magick == True
                             else:
-                                if player_mp > 0 and player_mp >= healcost:
-                                    player_hp = Heal + player_hp
+                                print("You're not a Cleric, you don't have access to this spell!")
+                                magick = False
+                        elif spell == "Holy":
+                            if stats == cleric:
+                                if player_mp > 0 and player_mp >= holycost:
+                                    enemy_hp = enemy_hp + Holy
                                     print("-"*40)
-                                    print("You healed 5 HP! You're current health is",player_hp)
-                                    player_mp = player_mp - healcost
-                                    print("You have",player_mp,"MP left.")
+                                    player_mp = player_mp - holycost
+                                    print(f"The enemy has {enemy_hp:.0f} HP left")
                                     print("The",enemy_name,"attacks you!")
                                     player_hp = player_hp - enemy_atk
                                     print("You have ",player_hp,"HP left!")
@@ -1570,58 +1608,42 @@ while Player == True:
                                 else:
                                     print("You don't have enough mana to cast this spell!")
                                     magick == False
-                        else:
-                            print("You're not a Cleric, you don't have access to this spell!")
-                            magick = False
-                    elif spell == "Holy":
-                        if stats == cleric:
-                            if player_mp > 0 and player_mp >= holycost:
-                                enemy_hp = enemy_hp + Holy
-                                print("-"*40)
-                                player_mp = player_mp - holycost
-                                print(f"The enemy has {enemy_hp:.0f} HP left")
-                                print("The",enemy_name,"attacks you!")
-                                player_hp = player_hp - enemy_atk
-                                print("You have ",player_hp,"HP left!")
-                                print("-"*40)
-                                magick = False
                             else:
-                                print("You don't have enough mana to cast this spell!")
-                                magick == False
-                        else:
-                            print("You're not a Cleric, you don't have access to this spell!")
-                            magick = False
-                    elif spell == "Barrier":
-                        if stats == fighter:
-                            if player_mp > 0 and player_mp >= holycost:
-                                player_def = player_def + Barrier
-                                print("-"*40)
-                                player_mp = player_mp - barriercost
-                                print("The",enemy_name,"attacks you!")
-                                print("You have",player_mp,"MP left!")
-                                if player_def < enemy_atk:
-                                    player_hp = player_hp - (player_def - enemy_atk)
-                                    print("You have ",player_hp,"HP left!")
-                                    print(f"The enemy has {enemy_hp:.0f} HP left")
-                                    player_def = max_def
-                                    magick = False
-                                elif player_def > enemy_atk:
-                                    print("The",enemy_name,"attack bounces off your armor. You have ",player_hp,"HP left!")
-                                    print(f"The enemy has {enemy_hp:.0f} HP left")
-                                    player_def = max_def
+                                print("You're not a Cleric, you don't have access to this spell!")
+                                magick = False
+                        elif spell == "Barrier":
+                            if stats == fighter:
+                                if player_mp > 0 and player_mp >= holycost:
+                                    player_def = player_def + Barrier
+                                    print("-"*40)
+                                    player_mp = player_mp - barriercost
+                                    print("The",enemy_name,"attacks you!")
+                                    print("You have",player_mp,"MP left!")
+                                    if player_def < enemy_atk:
+                                        player_hp = player_hp - (player_def - enemy_atk)
+                                        print("You have ",player_hp,"HP left!")
+                                        print(f"The enemy has {enemy_hp:.0f} HP left")
+                                        player_def = max_def
+                                        magick = False
+                                    elif player_def > enemy_atk:
+                                        print("The",enemy_name,"attack bounces off your armor. You have ",player_hp,"HP left!")
+                                        print(f"The enemy has {enemy_hp:.0f} HP left")
+                                        player_def = max_def
+                                        magick = False
+                                else:
+                                    print("You don't have enough mana to cast this spell!")
+                                    print(f"The enemy has{enemy_hp:.0f} HP left")
+                                    print("-"*40)
                                     magick = False
                             else:
-                                print("You don't have enough mana to cast this spell!")
-                                print(f"The enemy has{enemy_hp:.0f} HP left")
-                                print("-"*40)
+                                print("You're not a Fighter, you don't have access to this spell!")
                                 magick = False
                         else:
-                            print("You're not a Fighter, you don't have access to this spell!")
+                            print("You don't have any MP to cast spells!")
                             magick = False
-                    else:
-                        print("You don't have any MP to cast spells!")
-                        magick = False
-
+                else:
+                    print("You're a Barbarian! You don't need spells!")
+                    magick == False
             elif action == "Potion":
                 if potion_name1 !="" and potion_name2 != "":
                     potion_use = ""
@@ -1778,9 +1800,7 @@ while Player == True:
                 Player = True
             else:
                 Player = False
-               
-               
-               
+
         print("*"*30)
         print("You see a King Slime wobbling in the center of the room!")
         enemy = Enemies[4]
@@ -1789,10 +1809,8 @@ while Player == True:
         enemy_atk = enemy['ATK']
         enemy_def = enemy['DEF']
         enemy_mp = enemy['MP']
-        enemy_maxhp = enemy_hp       
+        enemy_maxhp = enemy_hp
 
-               
-               
         print("You approach the monster, ready to finish this dungeon! The battle begins!!")
         print("The",enemy_name,"prepares an action!")
         print("*"*30)
@@ -1826,41 +1844,60 @@ while Player == True:
                 print("-"*40)
 # move all the changes from magick to the other magick!
             elif action == "Magick" and enemy_hp >= (enemy_maxhp *.5):
-                magick = True
-                while magick == True and player_mp != 0:  #trying new while statement to check for mp
-                    spell = input("Which spell will you use? ")
-                    print()
-                    if spell == "Heal":
-                        if stats == cleric:
+                if stats == barbarian:
+                    magick = True
+                    while magick == True and player_mp != 0:  #trying new while statement to check for mp
+                        spell = input("Which spell will you use? ")
+                        print()
+                        if spell == "Heal":
+                            if stats == cleric:
 
-                            if max_hp == player_hp:
-                                choice = input("Are you sure you want to use this spell?\n You're still at full HP. (Yes/No)")
-                                if choice == "Yes" or choice == "yes":
+                                if max_hp == player_hp:
+                                    choice = input("Are you sure you want to use this spell?\n You're still at full HP. (Yes/No)")
+                                    if choice == "Yes" or choice == "yes":
+                                        if player_mp > 0 and player_mp >= healcost:
+                                            print("-"*40)
+                                            print("You used Heal! But you are at full health already...Oh well!")
+                                            player_mp = player_mp - healcost
+                                            
+                                            print("You have",player_mp,"MP left.")
+                                            print("The",enemy_name,"attacks you!")
+                                            
+                                            player_hp = player_hp - enemy_atk
+                                            print("You have",player_hp,"HP left!")
+                                            print("-"*40)
+                                            magick == False
+                                        else:
+                                            print("You don't have enough mana to cast this spell!")
+                                            magick == False
+                                    else:
+                                        print("Alright then, choose again.")
+                                        magick == True
+                                else:
                                     if player_mp > 0 and player_mp >= healcost:
+                                        player_hp = Heal + player_hp
                                         print("-"*40)
-                                        print("You used Heal! But you are at full health already...Oh well!")
+                                        print("You healed 5 HP! You're current health is",player_hp)
                                         player_mp = player_mp - healcost
-                                        
                                         print("You have",player_mp,"MP left.")
                                         print("The",enemy_name,"attacks you!")
-                                        
                                         player_hp = player_hp - enemy_atk
-                                        print("You have",player_hp,"HP left!")
+                                        print("You have ",player_hp,"HP left!")
                                         print("-"*40)
-                                        magick == False
+                                        magick = False
                                     else:
                                         print("You don't have enough mana to cast this spell!")
                                         magick == False
-                                else:
-                                    print("Alright then, choose again.")
-                                    magick == True
                             else:
-                                if player_mp > 0 and player_mp >= healcost:
-                                    player_hp = Heal + player_hp
+                                print("You're not a Cleric, you don't have access to this spell!")
+                                magick = False
+                        elif spell == "Holy":
+                            if stats == cleric:
+                                if player_mp > 0 and player_mp >= holycost:
+                                    enemy_hp = enemy_hp + Holy
                                     print("-"*40)
-                                    print("You healed 5 HP! You're current health is",player_hp)
-                                    player_mp = player_mp - healcost
-                                    print("You have",player_mp,"MP left.")
+                                    player_mp = player_mp - holycost
+                                    print(f"The enemy has {enemy_hp:.0f} HP left")
                                     print("The",enemy_name,"attacks you!")
                                     player_hp = player_hp - enemy_atk
                                     print("You have ",player_hp,"HP left!")
@@ -1869,57 +1906,42 @@ while Player == True:
                                 else:
                                     print("You don't have enough mana to cast this spell!")
                                     magick == False
-                        else:
-                            print("You're not a Cleric, you don't have access to this spell!")
-                            magick = False
-                    elif spell == "Holy":
-                        if stats == cleric:
-                            if player_mp > 0 and player_mp >= holycost:
-                                enemy_hp = enemy_hp + Holy
-                                print("-"*40)
-                                player_mp = player_mp - holycost
-                                print(f"The enemy has {enemy_hp:.0f} HP left")
-                                print("The",enemy_name,"attacks you!")
-                                player_hp = player_hp - enemy_atk
-                                print("You have ",player_hp,"HP left!")
-                                print("-"*40)
-                                magick = False
                             else:
-                                print("You don't have enough mana to cast this spell!")
-                                magick == False
-                        else:
-                            print("You're not a Cleric, you don't have access to this spell!")
-                            magick = False
-                    elif spell == "Barrier":
-                        if stats == fighter:
-                            if player_mp > 0 and player_mp >= holycost:
-                                player_def = player_def + Barrier
-                                print("-"*40)
-                                player_mp = player_mp - barriercost
-                                print("The",enemy_name,"attacks you!")
-                                print("You have",player_mp,"MP left!")
-                                if player_def < enemy_atk:
-                                    player_hp = player_hp - (player_def - enemy_atk)
-                                    print("You have ",player_hp,"HP left!")
-                                    print(f"The enemy has {enemy_hp:.0f} HP left")
-                                    player_def = max_def
-                                    magick = False
-                                elif player_def > enemy_atk:
-                                    print("The",enemy_name,"attack bounces off your armor. You have ",player_hp,"HP left!")
-                                    print(f"The enemy has {enemy_hp:.0f} HP left")
-                                    player_def = max_def
+                                print("You're not a Cleric, you don't have access to this spell!")
+                                magick = False
+                        elif spell == "Barrier":
+                            if stats == fighter:
+                                if player_mp > 0 and player_mp >= holycost:
+                                    player_def = player_def + Barrier
+                                    print("-"*40)
+                                    player_mp = player_mp - barriercost
+                                    print("The",enemy_name,"attacks you!")
+                                    print("You have",player_mp,"MP left!")
+                                    if player_def < enemy_atk:
+                                        player_hp = player_hp - (player_def - enemy_atk)
+                                        print("You have ",player_hp,"HP left!")
+                                        print(f"The enemy has {enemy_hp:.0f} HP left")
+                                        player_def = max_def
+                                        magick = False
+                                    elif player_def > enemy_atk:
+                                        print("The",enemy_name,"attack bounces off your armor. You have ",player_hp,"HP left!")
+                                        print(f"The enemy has {enemy_hp:.0f} HP left")
+                                        player_def = max_def
+                                        magick = False
+                                else:
+                                    print("You don't have enough mana to cast this spell!")
+                                    print(f"The enemy has{enemy_hp:.0f} HP left")
+                                    print("-"*40)
                                     magick = False
                             else:
-                                print("You don't have enough mana to cast this spell!")
-                                print(f"The enemy has{enemy_hp:.0f} HP left")
-                                print("-"*40)
+                                print("You're not a Fighter, you don't have access to this spell!")
                                 magick = False
                         else:
-                            print("You're not a Fighter, you don't have access to this spell!")
+                            print("You don't have any MP to cast spells!")
                             magick = False
-                    else:
-                        print("You don't have any MP to cast spells!")
-                        magick = False
+                else:
+                    print("You're a Barbarian! You don't need spells!")
+                    magick == False
                 #print("You don't have enough mana to cast spells.")
             #switch up the attacks to defense while the enemy has health under half
             elif action == "Attack" and enemy_hp < (enemy_maxhp * .5):
@@ -1945,41 +1967,60 @@ while Player == True:
         #need another if statement for if an enemy attack bounces off the player
                 
             elif action == "Magick" and enemy_hp < (enemy_maxhp *.5):
-                magick = True
-                while magick == True and player_mp != 0:  #trying new while statement to check for mp
-                    spell = input("Which spell will you use? ")
-                    print()
-                    if spell == "Heal":
-                        if stats == cleric:
+                if stats == barbarian:
+                    magick = True
+                    while magick == True and player_mp != 0:  #trying new while statement to check for mp
+                        spell = input("Which spell will you use? ")
+                        print()
+                        if spell == "Heal":
+                            if stats == cleric:
 
-                            if max_hp == player_hp:
-                                choice = input("Are you sure you want to use this spell?\n You're still at full HP. (Yes/No)")
-                                if choice == "Yes" or choice == "yes":
+                                if max_hp == player_hp:
+                                    choice = input("Are you sure you want to use this spell?\n You're still at full HP. (Yes/No)")
+                                    if choice == "Yes" or choice == "yes":
+                                        if player_mp > 0 and player_mp >= healcost:
+                                            print("-"*40)
+                                            print("You used Heal! But you are at full health already...Oh well!")
+                                            player_mp = player_mp - healcost
+                                            
+                                            print("You have",player_mp,"MP left.")
+                                            print("The",enemy_name,"attacks you!")
+                                            
+                                            player_hp = player_hp - enemy_atk
+                                            print("You have",player_hp,"HP left!")
+                                            print("-"*40)
+                                            magick == False
+                                        else:
+                                            print("You don't have enough mana to cast this spell!")
+                                            magick == False
+                                    else:
+                                        print("Alright then, choose again.")
+                                        magick == True
+                                else:
                                     if player_mp > 0 and player_mp >= healcost:
+                                        player_hp = Heal + player_hp
                                         print("-"*40)
-                                        print("You used Heal! But you are at full health already...Oh well!")
+                                        print("You healed 5 HP! You're current health is",player_hp)
                                         player_mp = player_mp - healcost
-                                        
                                         print("You have",player_mp,"MP left.")
                                         print("The",enemy_name,"attacks you!")
-                                        
                                         player_hp = player_hp - enemy_atk
-                                        print("You have",player_hp,"HP left!")
+                                        print("You have ",player_hp,"HP left!")
                                         print("-"*40)
-                                        magick == False
+                                        magick = False
                                     else:
                                         print("You don't have enough mana to cast this spell!")
                                         magick == False
-                                else:
-                                    print("Alright then, choose again.")
-                                    magick == True
                             else:
-                                if player_mp > 0 and player_mp >= healcost:
-                                    player_hp = Heal + player_hp
+                                print("You're not a Cleric, you don't have access to this spell!")
+                                magick = False
+                        elif spell == "Holy":
+                            if stats == cleric:
+                                if player_mp > 0 and player_mp >= holycost:
+                                    enemy_hp = enemy_hp + Holy
                                     print("-"*40)
-                                    print("You healed 5 HP! You're current health is",player_hp)
-                                    player_mp = player_mp - healcost
-                                    print("You have",player_mp,"MP left.")
+                                    player_mp = player_mp - holycost
+                                    print(f"The enemy has {enemy_hp:.0f} HP left")
                                     print("The",enemy_name,"attacks you!")
                                     player_hp = player_hp - enemy_atk
                                     print("You have ",player_hp,"HP left!")
@@ -1988,58 +2029,42 @@ while Player == True:
                                 else:
                                     print("You don't have enough mana to cast this spell!")
                                     magick == False
-                        else:
-                            print("You're not a Cleric, you don't have access to this spell!")
-                            magick = False
-                    elif spell == "Holy":
-                        if stats == cleric:
-                            if player_mp > 0 and player_mp >= holycost:
-                                enemy_hp = enemy_hp + Holy
-                                print("-"*40)
-                                player_mp = player_mp - holycost
-                                print(f"The enemy has {enemy_hp:.0f} HP left")
-                                print("The",enemy_name,"attacks you!")
-                                player_hp = player_hp - enemy_atk
-                                print("You have ",player_hp,"HP left!")
-                                print("-"*40)
-                                magick = False
                             else:
-                                print("You don't have enough mana to cast this spell!")
-                                magick == False
-                        else:
-                            print("You're not a Cleric, you don't have access to this spell!")
-                            magick = False
-                    elif spell == "Barrier":
-                        if stats == fighter:
-                            if player_mp > 0 and player_mp >= holycost:
-                                player_def = player_def + Barrier
-                                print("-"*40)
-                                player_mp = player_mp - barriercost
-                                print("The",enemy_name,"attacks you!")
-                                print("You have",player_mp,"MP left!")
-                                if player_def < enemy_atk:
-                                    player_hp = player_hp - (player_def - enemy_atk)
-                                    print("You have ",player_hp,"HP left!")
-                                    print(f"The enemy has {enemy_hp:.0f} HP left")
-                                    player_def = max_def
-                                    magick = False
-                                elif player_def > enemy_atk:
-                                    print("The",enemy_name,"attack bounces off your armor. You have ",player_hp,"HP left!")
-                                    print(f"The enemy has {enemy_hp:.0f} HP left")
-                                    player_def = max_def
+                                print("You're not a Cleric, you don't have access to this spell!")
+                                magick = False
+                        elif spell == "Barrier":
+                            if stats == fighter:
+                                if player_mp > 0 and player_mp >= holycost:
+                                    player_def = player_def + Barrier
+                                    print("-"*40)
+                                    player_mp = player_mp - barriercost
+                                    print("The",enemy_name,"attacks you!")
+                                    print("You have",player_mp,"MP left!")
+                                    if player_def < enemy_atk:
+                                        player_hp = player_hp - (player_def - enemy_atk)
+                                        print("You have ",player_hp,"HP left!")
+                                        print(f"The enemy has {enemy_hp:.0f} HP left")
+                                        player_def = max_def
+                                        magick = False
+                                    elif player_def > enemy_atk:
+                                        print("The",enemy_name,"attack bounces off your armor. You have ",player_hp,"HP left!")
+                                        print(f"The enemy has {enemy_hp:.0f} HP left")
+                                        player_def = max_def
+                                        magick = False
+                                else:
+                                    print("You don't have enough mana to cast this spell!")
+                                    print(f"The enemy has{enemy_hp:.0f} HP left")
+                                    print("-"*40)
                                     magick = False
                             else:
-                                print("You don't have enough mana to cast this spell!")
-                                print(f"The enemy has{enemy_hp:.0f} HP left")
-                                print("-"*40)
+                                print("You're not a Fighter, you don't have access to this spell!")
                                 magick = False
                         else:
-                            print("You're not a Fighter, you don't have access to this spell!")
+                            print("You don't have any MP to cast spells!")
                             magick = False
-                    else:
-                        print("You don't have any MP to cast spells!")
-                        magick = False
-
+                else:
+                    print("You're a Barbarian! You don't need spells!")
+                    magick == False
             elif action == "Potion":
                 if potion_name1 !="" and potion_name2 != "":
                     potion_use = ""
