@@ -4,9 +4,9 @@
 """print(magic.magic)"""
 
 #Establish classes and their stats
-barbarian={'ATK':3,'DEF':4,'HP':40,'MP':0}
-cleric={'ATK':1,'DEF':2,'HP':20,'MP':20}
-fighter={'ATK':2,'DEF':3,'HP':30,'MP':8}
+barbarian={'ATK':5,'DEF':4,'HP':40,'MP':0}
+cleric={'ATK':3,'DEF':2,'HP':20,'MP':20}
+fighter={'ATK':4,'DEF':3,'HP':30,'MP':8}
 Classes =[]
 Classes.append(barbarian)
 Classes.append(cleric)
@@ -27,6 +27,9 @@ swPrice = int(9)
 mPrice = int(10)
 sPrice=int(5)
 weapon_prices = [swPrice,mPrice,sPrice]
+#initialize armor_def and weapon_dmg
+weapon_dmg = int(0)
+armor_def = int(0)
 #armor: leather, iron, gold
 leather = "Leather Armor"
 iron = "Iron Armor"
@@ -65,7 +68,7 @@ potion_prices = [hPrice,mPrice,fPrice,iPrice]
 Enemy = ["Orc","Gnome","Fairy","Elemental","King Slime"]
 orc = {'ATK':6, 'DEF':6, 'HP':20,'MP':0}
 gnome = {'ATK':4, 'DEF':2, 'HP':10,'MP':3}
-elemental = {'ATK':1, 'DEF':5, 'HP':5,'MP':10}
+elemental = {'ATK':1, 'DEF':7, 'HP':5,'MP':10}
 fairy = {'ATK':2, 'DEF':3, 'HP':15,'MP':5}
 king_slime = {'ATK':8, 'DEF':6, 'HP':45,'MP':0}
 
@@ -125,6 +128,7 @@ while Player == True:
             
             #Show small shop with weapons and items with pricing
             print("Shop Owner: 'Welcome",player_Name,"! Please come purchase something from my store to aid you on your adventure!'")
+            print("Shop Owner: If you don't wish to purchase something, you're welcome to tell me so with a simple 'no'.")
             print()
             print("-"*3,"Dungeon Shop, get your gear!","-"*3)
             print(f'{"Items":<30}{"Prices":<30}')
