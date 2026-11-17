@@ -367,13 +367,13 @@ while Player == True:
             coin = coins
             
 
-
-            openShop(coin)
+            #to get values back from a function you need to return the variables then set those variables equal to the variables as you can see below
+            potion_slot1,potion_slot2,potion_name1,potion_name2,weapon_name,armor_name,weapon_dmg,armor_def = openShop(coin)
             print ("You have",potion_slot1,potion_slot2,potion_name1,potion_name2,weapon_name,armor_name,weapon_dmg,armor_def)
-decision = input("Would you like to go back and restart? Yes or No? ")
-if decision == "Yes":
-    decision = 1
-else:
-    print("Lets head into the dungeon")
+            decision = input("Would you like to go back and restart? Yes or No? ")
+            if decision == "Yes":
+                decision = 1
+            else:
+                print("Lets head into the dungeon")
     
 #ask user what and if they want to buy anything, 1 weapon, 1 armor, up to 2 potions.
