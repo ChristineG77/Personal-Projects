@@ -1,4 +1,5 @@
 #upgrade previous V1 by introducing methods and random numbers(crits, misses,attacks,defends,magick)
+import Enemies
 
 barbarian={'ATK':5,'DEF':4,'HP':40,'MP':0}
 cleric={'ATK':3,'DEF':2,'HP':20,'MP':20}
@@ -67,7 +68,7 @@ fPrice = int(6)
 iPrice = int(8)
 potion_prices = [hPrice,mPrice,fPrice,iPrice]
 #Establish enemy variables and stats using lists these are constants
-#enemies: orc, gnome,elemental,fairy
+#enemies: orc,gnome,elemental,fairy
 Enemy = ["Orc","Gnome","Fairy","Elemental","King Slime"]
 orc = {'ATK':6, 'DEF':6, 'HP':20,'MP':0}
 gnome = {'ATK':4, 'DEF':2, 'HP':10,'MP':3}
@@ -81,6 +82,12 @@ Enemies.append(gnome)
 Enemies.append(fairy)
 Enemies.append(elemental)
 Enemies.append(king_slime)
+enemy_name = ""
+enemy_hp = 0
+enemy_atk = 0
+enemy_def = 0
+enemy_mp = 0
+enemy_maxhp = 0
 
 def openShop(coin):
     print("Shop Owner: 'Welcome",player_Name,"! Please come purchase something from my store to aid you on your adventure!'")
@@ -315,8 +322,483 @@ def openShop(coin):
         print("Shop Owner: You have a",weapon_name,"you have",armor_name,"you have a",potion_name1,"and you have a",potion_name2)
     return potion_slot1,potion_slot2,potion_name1,potion_name2,weapon_name,armor_name,weapon_dmg,armor_def#this isnt returning the values needed
     
+def chooseBattle():
+    print("*"*20)
+    print()
+    print()
+    print("You enter a hallway! You see multiple rooms, which one will you pick? ")
+    battle = True
+    while battle == True:
+        monster = input("Pick a room: 1, 2, 3, or 4: ")
+        if monster != "1" and monster != "2" and monster != "3" and monster != "4":
+            print("You didn't pick a room!")
+            battle = True
+        elif monster == "1":
+            monster = 0
+            print("*"*30)
+            print("You see an Orc standing in the center of the room!")
+            enemy = Enemies[monster]
+            enemy_name = Enemy[monster]
+            enemy_hp = enemy['HP']
+            enemy_atk = enemy['ATK']
+            enemy_def = enemy['DEF']
+            enemy_mp = enemy['MP']
+            enemy_maxhp = enemy_hp
+            battle = False
+        elif monster == "2":
+            monster = 1
+            print("*"*30)
+            print("You see a Gnome sitting on a mushroom in the center of the room!")
+            enemy = Enemies[monster]
+            enemy_name = Enemy[monster]
+            enemy_hp = enemy['HP']
+            enemy_atk = enemy['ATK']
+            enemy_def = enemy['DEF']
+            enemy_mp = enemy['MP']
+            enemy_maxhp = enemy_hp
+            battle = False
+        elif monster == "3":
+            monster = 2
+            print("*"*30)
+            print("You see a Fairy flittering about the room!")
+            enemy = Enemies[monster]
+            enemy_name = Enemy[monster]
+            enemy_hp = enemy['HP']
+            enemy_atk = enemy['ATK']
+            enemy_def = enemy['DEF']
+            enemy_mp = enemy['MP']
+            enemy_maxhp = enemy_hp
+            battle = False
+        elif monster == "4":
+            monster = 3
+            print("*"*30)
+            print("You see a Elemental floating in the center of the room!")
+            enemy = Enemies[monster]
+            enemy_name = Enemy[monster]
+            enemy_hp = enemy['HP']
+            enemy_atk = enemy['ATK']
+            enemy_def = enemy['DEF']
+            enemy_mp = enemy['MP']
+            enemy_maxhp = enemy_hp
+            battle = False
+            
+        return enemy_name,enemy_atk,enemy_def,enemy_mp,enemy_maxhp,enemy_hp
 
+def fightBattle(max_dmg,player_dmg,max_def,player_def,max_hp,player_hp,max_mp,player_mp,enemy_name,enemy_hp,enemy_mp,enemy_maxhp,enemy_atk,enemy_def,Player,potion_name1,potion_name2):
+    Heal = 5
+    healcost = 3
+    Barrier = 3
+    barriercost = 2
+    Holy = -6
+    holycost = 5
+    #Fight!!
+    while enemy_hp != 0 and enemy_hp > 0 and player_hp != 0 and player_hp > 0:
+        print("What will you do? Attack, Defend, use Magick, or use a Potion?")
+        print()
+        action = input()
+        
+        if action == "Attack" and enemy_hp >= (enemy_maxhp*.5):
+            print("-"*40)
+            print("You and the",enemy_name,"attack each other!")
+            player_hp = player_hp - enemy_atk
+            print("You have",player_hp,"HP left!")
+            enemy_hp = enemy_hp - player_dmg
+            print(f"The enemy has {enemy_hp:.0f} HP left")
+            print("-"*40)
+            player_dmg = max_dmg
+        elif action == "Defend" and enemy_hp >= (enemy_maxhp*.5):
+            print("-"*40)
+            print("You defend yourself\nThe",enemy_name,"attacks you!")
+    #need another if statement for if an enemy attack bounces off the player
+            if player_def < enemy_atk:
+                player_hp = player_hp - (enemy_atk - player_def)
+                print("You have",player_hp,"HP left!")
+                print(f"The enemy still has {enemy_hp:.0f} HP left")
+            elif player_def > enemy_atk:
+                print("The",enemy_name,"attack bounces off your armor.")
+                print(f"The enemy still has {enemy_hp:.0f} HP left")
+            print("-"*40)
+# move all the changes from magick to the other magick!
+        elif action == "Magick" and enemy_hp >= (enemy_maxhp *.5):
+            if stats != barbarian:
+                magick = True
+                while magick == True and player_mp != 0:  #trying new while statement to check for mp
+                    spell = input("Which spell will you use? ")
+                    print()
+                    if spell == "Heal":
+                        if stats == cleric:
 
+                            if max_hp == player_hp:
+                                choice = input("Are you sure you want to use this spell?\n You're still at full HP. (Yes/No)")
+                                if choice == "Yes" or choice == "yes":
+                                    if player_mp > 0 and player_mp >= healcost:
+                                        print("-"*40)
+                                        print("You used Heal! But you are at full health already...Oh well!")
+                                        player_mp = player_mp - healcost
+                                        
+                                        print("You have",player_mp,"MP left.")
+                                        print("The",enemy_name,"attacks you!")
+                                        
+                                        player_hp = player_hp - enemy_atk
+                                        print("You have",player_hp,"HP left!")
+                                        print("-"*40)
+                                        magick == False
+                                    else:
+                                        print("You don't have enough mana to cast this spell!")
+                                else:
+                                    print("Alright then, choose again.")
+                                    magick == True
+                            else:
+                                if player_mp > 0 and player_mp >= healcost:
+                                    player_hp = Heal + player_hp
+                                    print("-"*40)
+                                    print("You healed 5 HP! You're current health is",player_hp)
+                                    player_mp = player_mp - healcost
+                                    print("You have",player_mp,"MP left.")
+                                    print("The",enemy_name,"attacks you!")
+                                    player_hp = player_hp - enemy_atk
+                                    print("You have ",player_hp,"HP left!")
+                                    print("-"*40)
+                                    magick = False
+                                else:
+                                    print("You don't have enough mana to cast this spell!")
+                        else:
+                            print("You're not a Cleric, you don't have access to this spell!")
+                            magick = False
+                    elif spell == "Holy":
+                        if stats == cleric:
+                            if player_mp > 0 and player_mp >= holycost:
+                                enemy_hp = enemy_hp + Holy
+                                print("-"*40)
+                                player_mp = player_mp - holycost
+                                print(f"The enemy has {enemy_hp:.0f} HP left")
+                                print("The",enemy_name,"attacks you!")
+                                player_hp = player_hp - enemy_atk
+                                print("You have ",player_hp,"HP left!")
+                                print("-"*40)
+                                magick = False
+                            else:
+                                print("You don't have enough mana to cast this spell!")
+                        else:
+                            print("You're not a Cleric, you don't have access to this spell!")
+                            magick = False
+                    elif spell == "Barrier":
+                        if stats == fighter:
+                            if player_mp > 0 and player_mp >= holycost:
+                                player_def = player_def + Barrier
+                                print("-"*40)
+                                player_mp = player_mp - barriercost
+                                print("The",enemy_name,"attacks you!")
+                                print("You have",player_mp,"MP left!")
+                                if player_def < enemy_atk:
+                                    player_hp = player_hp - (player_def - enemy_atk)
+                                    print("You have ",player_hp,"HP left!")
+                                    print(f"The enemy has {enemy_hp:.0f} HP left")
+                                    player_def = max_def
+                                    magick = False
+                                elif player_def > enemy_atk:
+                                    print("The",enemy_name,"attack bounces off your armor. You have ",player_hp,"HP left!")
+                                    print(f"The enemy has {enemy_hp:.0f} HP left")
+                                    player_def = max_def
+                                    magick = False
+                            else:
+                                print("You don't have enough mana to cast this spell!")
+                                print(f"The enemy has{enemy_hp:.0f} HP left")
+                                print("-"*40)
+                                magick = False
+                        else:
+                            print("You're not a Fighter, you don't have access to this spell!")
+                            magick = False
+                    else:
+                        print("You don't have any MP to cast spells!")
+                        magick = False
+            else:
+                print("You're a Barbarian! You don't need spells!")
+                
+            #print("You don't have enough mana to cast spells.")
+        #switch up the attacks to defense while the enemy has health under half
+        elif action == "Attack" and enemy_hp < (enemy_maxhp * .5):
+            print("-"*40)
+            print("The",enemy_name,"defends itself!")
+            if enemy_def < player_dmg:
+                enemy_hp = enemy_hp - (player_dmg - enemy_def)
+                print("You have ",player_hp,"HP left!")
+                print(f"The enemy has {enemy_hp:.0f} HP left")
+                player_dmg = max_dmg
+            elif player_def > enemy_atk:
+                print("Your attack bounces off the",enemy_name,".")
+                print(f"The enemy has {enemy_hp:.0f} HP left")
+                print("You have ",player_hp,"HP left!")
+                player_dmg = max_dmg
+            print("-"*40)
+        elif action == "Defend" and enemy_hp < (enemy_maxhp*.5):
+            print("-"*40)
+            print("The",enemy_name,"defends itself!")
+            print("You defend yourself!")
+            print("Neither of you attack the other.")
+            print("-"*40)
+    #need another if statement for if an enemy attack bounces off the player
+            
+        elif action == "Magick" and enemy_hp < (enemy_maxhp *.5):
+            if stats != barbarian:
+                magick = True
+                while magick == True and player_mp != 0:  #trying new while statement to check for mp
+                    spell = input("Which spell will you use? ")
+                    print()
+                    if spell == "Heal":
+                        if stats == cleric:
+
+                            if max_hp == player_hp:
+                                choice = input("Are you sure you want to use this spell?\n You're still at full HP. (Yes/No)")
+                                if choice == "Yes" or choice == "yes":
+                                    if player_mp > 0 and player_mp >= healcost:
+                                        print("-"*40)
+                                        print("You used Heal! But you are at full health already...Oh well!")
+                                        player_mp = player_mp - healcost
+                                        
+                                        print("You have",player_mp,"MP left.")
+                                        print("The",enemy_name,"attacks you!")
+                                        
+                                        player_hp = player_hp - enemy_atk
+                                        print("You have",player_hp,"HP left!")
+                                        print("-"*40)
+                                        magick == False
+                                    else:
+                                        print("You don't have enough mana to cast this spell!")
+                                        magick == False
+                                else:
+                                    print("Alright then, choose again.")
+                                    magick == True
+                            else:
+                                if player_mp > 0 and player_mp >= healcost:
+                                    player_hp = Heal + player_hp
+                                    print("-"*40)
+                                    print("You healed 5 HP! You're current health is",player_hp)
+                                    player_mp = player_mp - healcost
+                                    print("You have",player_mp,"MP left.")
+                                    print("The",enemy_name,"attacks you!")
+                                    player_hp = player_hp - enemy_atk
+                                    print("You have ",player_hp,"HP left!")
+                                    print("-"*40)
+                                    magick = False
+                                else:
+                                    print("You don't have enough mana to cast this spell!")
+                                    magick == False
+                        else:
+                            print("You're not a Cleric, you don't have access to this spell!")
+                            magick = False
+                    elif spell == "Holy":
+                        if stats == cleric:
+                            if player_mp > 0 and player_mp >= holycost:
+                                enemy_hp = enemy_hp + Holy
+                                print("-"*40)
+                                player_mp = player_mp - holycost
+                                print(f"The enemy has {enemy_hp:.0f} HP left")
+                                print("The",enemy_name,"attacks you!")
+                                player_hp = player_hp - enemy_atk
+                                print("You have ",player_hp,"HP left!")
+                                print("-"*40)
+                                magick = False
+                            else:
+                                print("You don't have enough mana to cast this spell!")
+                                magick == False
+                        else:
+                            print("You're not a Cleric, you don't have access to this spell!")
+                            magick = False
+                    elif spell == "Barrier":
+                        if stats == fighter:
+                            if player_mp > 0 and player_mp >= holycost:
+                                player_def = player_def + Barrier
+                                print("-"*40)
+                                player_mp = player_mp - barriercost
+                                print("The",enemy_name,"attacks you!")
+                                print("You have",player_mp,"MP left!")
+                                if player_def < enemy_atk:
+                                    player_hp = player_hp - (player_def - enemy_atk)
+                                    print("You have ",player_hp,"HP left!")
+                                    print(f"The enemy has {enemy_hp:.0f} HP left")
+                                    player_def = max_def
+                                    magick = False
+                                elif player_def > enemy_atk:
+                                    print("The",enemy_name,"attack bounces off your armor. You have ",player_hp,"HP left!")
+                                    print(f"The enemy has {enemy_hp:.0f} HP left")
+                                    player_def = max_def
+                                    magick = False
+                            else:
+                                print("You don't have enough mana to cast this spell!")
+                                print(f"The enemy has{enemy_hp:.0f} HP left")
+                                print("-"*40)
+                                magick = False
+                        else:
+                            print("You're not a Fighter, you don't have access to this spell!")
+                            magick = False
+                    else:
+                        print("You don't have any MP to cast spells!")
+                        magick = False
+            else:
+                print("You're a Barbarian! You don't need spells!")
+                
+
+        elif action == "Potion":
+            if potion_name1 !="" and potion_name2 != "":
+                potion_use = ""
+                print("-"*40)
+                print("You have a",potion_name1,"and a",potion_name2,"to use. Which would you like to use? Slot 1 or Slot 2:")
+                print("Please enter the numbered slot you'd like to use (1/2):")
+                potion_num = int(input())
+                if potion_num == 1:
+                    if potion_name1 == "Health Potion":
+                        print("You uncap the potion and tip it back, it closes your wounds and helps you feel re-energized! It also tastes like cherries!")
+                        player_hp = player_hp + potion_effect[1]
+                        print("You healed 10 HP! You now have", player_hp,"HP")
+                        potion_name1 = ""
+                        print("-"*40)
+                        
+                    elif potion_name1 == "Mana Potion":
+                        print("You uncap the potion and tip it back, it rejuvinizes your mana reserves. It tastes like blueberries!")
+                        player_mp = player_mp + potion_effect[2]
+                        print("You restored 10 MP! You now have",player_mp,"MP")
+                        potion_name1 = ""
+                        print("-"*40)
+                        
+                    elif potion_name1 == "Fire Potion":
+                        print("You take out the vial of liquid fire and throw it at the",enemy_name,". It explodes and covers the floor with fire!")
+                        enemy_hp = enemy_hp + (potion_effect[3]*-1)
+                        print("The",enemy_name,"takes 5 Fire damage! The",enemy_name,"has",enemy_hp,"left.")
+                        potion_name1 = ""
+                        print("-"*40)
+                        
+                    elif potion_name1 == "Ice Potion":
+                        print("You take out the vial of frozen crystals and throw it at the",enemy_name,". It explodes and a hail of ice comes out!")
+                        enemy_hp = enemy_hp + (potion_effect[3]*-1)
+                        print("The",enemy_name,"takes 7 Ice damage! The",enemy_name,"has",enemy_hp,"left.")
+                        potion_name1 = ""
+                        print("-"*40)
+                        
+                elif potion_num == 2:
+                    if potion_name2 == "Health Potion":
+                        print("You uncap the potion and tip it back, it closes your wounds and helps you feel re-energized! It also tastes like cherries!")
+                        player_hp = player_hp + potion_effect[1]
+                        print("You healed 10 HP! You now have", player_hp,"HP")
+                        potion_name2 = ""
+                        print("-"*40)
+                        
+                    elif potion_name2 == "Mana Potion":
+                        print("You uncap the potion and tip it back, it rejuvinizes your mana reserves. It tastes like blueberries!")
+                        player_mp = player_mp + potion_effect[2]
+                        print("You restored 10 MP! You now have",player_mp,"MP")
+                        potion_name2 = ""
+                        print("-"*40)
+                        
+                    elif potion_name2 == "Fire Potion":
+                        print("You take out the vial of liquid fire and throw it at the",enemy_name,". It explodes and covers the floor with fire!")
+                        enemy_hp = enemy_hp + (potion_effect[3]*-1)
+                        print("The",enemy_name,"takes 5 Fire damage! The",enemy_name,"has",enemy_hp,"left.")
+                        potion_name2 = ""
+                        print("-"*40)
+                        
+                    elif potion_name2 == "Ice Potion":
+                        print("You take out the vial of frozen crystals and throw it at the",enemy_name,". It explodes and a hail of ice comes out!")
+                        enemy_hp = enemy_hp + (potion_effect[3]*-1)
+                        print("The",enemy_name,"takes 7 Ice damage! The",enemy_name,"has",enemy_hp,"left.")
+                        potion_name2 = ""
+                        
+                        print("-"*40)
+
+                else:
+                    print("Please choose a number associated with the potion slots.")
+                    print("-"*40)
+            elif potion_name1 != "" and potion_name2 == "":
+                print("-"*40)
+                print("You have a",potion_name1,"to use.")
+                print("Would you like to use this potion? (y/n):")
+                #print("Would you like to use the potion in this slot? (yes/no):")
+                potion_use = input()
+                if potion_use == "Y" or potion_use == "y":
+                    if potion_name1 == potions[0]:
+                        print("You uncap the potion and tip it back, it closes your wounds and helps you feel re-energized! It also tastes like cherries!")
+                        player_hp = player_hp + potion_effect[0]
+                        print("You healed 10 HP! You now have", player_hp,"HP")
+
+                        potion_name1 = ""
+                        print("-"*40)
+                    elif potion_name1 == potions[1]:
+                        print("You uncap the potion and tip it back, it rejuvinizes your mana reserves. It tastes like blueberries!")
+                        player_mp = player_mp + potion_effect[1]
+                        print("You restored 10 MP! You now have",player_mp,"MP")
+
+                        potion_name1 = ""
+                        print("-"*40)
+                    elif potion_name1 == potions[2]:
+                        print("You take out the vial of liquid fire and throw it at the",enemy_name,". It explodes and covers the floor with fire!")
+                        enemy_hp = enemy_hp + (potion_effect[2]*-1)
+                        print("The",enemy_name,"takes 5 Fire damage! The",enemy_name,"has",enemy_hp,"left.")
+
+                        potion_name1 = ""
+                        print("-"*40)
+                    elif potion_name1 == potions[3]:
+                        print("You take out the vial of frozen crystals and throw it at the",enemy_name,". It explodes and a hail of ice comes out!")
+                        enemy_hp = enemy_hp + (potion_effect[3]*-1)
+                        print("The",enemy_name,"takes 7 Ice damage! The",enemy_name,"has",enemy_hp,"left.")
+
+                        potion_name1 = ""
+                        print("-"*40)
+                    
+                        
+            elif potion_name1 =="" and potion_name2 != "":
+                print("-"*40)
+                print("You have a",potion_name2,"to use.")
+
+                print("Would you like to use this potion?: (y/n)")
+                potion_use = input()
+                if potion_use == "Y" or potion_use == "y":
+                    if potion_name2 == potions[0]:
+                        print("You uncap the potion and tip it back, it closes your wounds and helps you feel re-energized! It also tastes like cherries!")
+                        player_hp = player_hp + potion_effect[0]
+                        print("You healed 10 HP! You now have", player_hp,"HP")
+                        if potion_use == potion_name2:
+                            potion_name2 = ""
+                        print("-"*40)
+                    elif potion_name2 == potions[1]:
+                        print("You uncap the potion and tip it back, it rejuvinizes your mana reserves. It tastes like blueberries!")
+                        player_mp = player_mp + potion_effect[1]
+                        print("You restored 10 MP! You now have",player_mp,"MP")
+                        if potion_use == potion_name2:
+                            potion_name2 = ""
+                        print("-"*40)
+                    elif potion_name2 == potions[2]:
+                        print("You take out the vial of liquid fire and throw it at the",enemy_name,". It explodes and covers the floor with fire!")
+                        enemy_hp = enemy_hp + (potion_effect[2]*-1)
+                        print("The",enemy_name,"takes 5 Fire damage! The",enemy_name,"has",enemy_hp,"left.")
+                        if potion_use == potion_name2:
+                            potion_name2 = ""
+                        print("-"*40)
+                    elif potion_name2 == potions[3]:
+                        print("You take out the vial of frozen crystals and throw it at the",enemy_name,". It explodes and a hail of ice comes out!")
+                        enemy_hp = enemy_hp + (potion_effect[3]*-1)
+                        print("The",enemy_name,"takes 7 Ice damage! The",enemy_name,"has",enemy_hp,"left.")
+                        if potion_use == potion_name2:
+                            potion_name2 = ""
+                        print("-"*40)
+            elif potion_name1 == "" and potion_name2 == "":
+                print("You don't have any potions to use. Please pick something else.")
+                print("-"*40)
+    if enemy_hp == 0 or enemy_hp < 0:
+        print("You have defeated the",enemy_name,"! Continue onward through the next hallway!")
+        Player = False
+        return player_mp,player_hp
+    else:
+        print("You have perished!")
+        print()
+        print("Would you like to try this adventure from the beginning? (Yes/No): ")
+        Player_choice = input()
+        if Player_choice == "Yes" or Player_choice == "yes":
+            Player = True
+            return Player
+        else:
+            Player = False
+            return Player
+    
 
 
 Player = bool
@@ -375,5 +857,27 @@ while Player == True:
                 decision = 1
             else:
                 print("Lets head into the dungeon")
-    
-#ask user what and if they want to buy anything, 1 weapon, 1 armor, up to 2 potions.
+        max_dmg = weapon_dmg + stats['ATK']
+        player_dmg = weapon_dmg + stats['ATK']
+        max_def = armor_def + stats['DEF']
+        player_def = armor_def + stats['DEF']
+        max_hp = stats['HP']
+        player_hp = stats['HP']
+        max_mp = stats['MP']
+        player_mp = stats['MP']
+
+        
+        print()
+        print("*"*5,"Magicks!","*"*5)
+        if stats == cleric:
+            print("As a Cleric you have access to two magic spells: Heal and Holy.\nHeal will heal you back 5 health and Holy does 6 dmg to enemies.\nHeal uses 3 Mana and Holy uses 5 Mana.")
+        elif stats == fighter:
+            print("As a Fighter you have access to one magic spell: Barrier.\nBarrier will increase you defense by 3 for 1 turn.\nBarrier costs 2 Mana.")
+        else:
+            print("You are a Barbarian and have no need for spells and magick!")
+            
+        enemy_name,enemy_atk,enemy_def,enemy_mp,enemy_maxhp,enemy_hp = chooseBattle()
+        player_mp,player_hp = fightBattle(max_dmg,player_dmg,max_def,player_def,max_hp,player_hp,max_mp,player_mp,enemy_name,enemy_hp,enemy_mp,enemy_maxhp,enemy_atk,enemy_def,Player)
+    else:
+        print("Have fun elsewhere!")
+        Player == False
