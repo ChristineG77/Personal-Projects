@@ -2230,7 +2230,7 @@ while Player == True:
         print("Thank you for playing!")
     else:
         print("Have fun elsewhere!")
-        Player == False
+        Player = False
 
 
 

@@ -1,5 +1,5 @@
 #upgrade previous V1 by introducing methods and random numbers(crits, misses,attacks,defends,magick)
-import Enemies
+#import Enemies
 
 barbarian={'ATK':5,'DEF':4,'HP':40,'MP':0}
 cleric={'ATK':3,'DEF':2,'HP':20,'MP':20}
@@ -881,4 +881,4 @@ while Player == True:
         player_mp,player_hp = fightBattle(max_dmg,player_dmg,max_def,player_def,max_hp,player_hp,max_mp,player_mp,enemy_name,enemy_hp,enemy_mp,enemy_maxhp,enemy_atk,enemy_def)
     else:
         print("Have fun elsewhere!")
-        Player == False
+        Player = False
