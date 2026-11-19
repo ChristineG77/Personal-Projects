@@ -860,7 +860,7 @@ while Player == True:
                     print("-"*40)
         if enemy_hp == 0 or enemy_hp < 0:
             print("You have defeated the",enemy_name,"! Continue onward through the next hallway!")
-            Player = False
+            #Player = False
         else:
             print("You have perished!")
             print()

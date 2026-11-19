@@ -785,8 +785,9 @@ def fightBattle(max_dmg,player_dmg,max_def,player_def,max_hp,player_hp,max_mp,pl
                 print("-"*40)
     if enemy_hp == 0 or enemy_hp < 0:
         print("You have defeated the",enemy_name,"! Continue onward through the next hallway!")
-        Player = False
+        #Player = False
         return player_mp,player_hp
+    #make another method to call when you die
     else:
         print("You have perished!")
         print()
@@ -877,7 +878,7 @@ while Player == True:
             print("You are a Barbarian and have no need for spells and magick!")
             
         enemy_name,enemy_atk,enemy_def,enemy_mp,enemy_maxhp,enemy_hp = chooseBattle()
-        player_mp,player_hp = fightBattle(max_dmg,player_dmg,max_def,player_def,max_hp,player_hp,max_mp,player_mp,enemy_name,enemy_hp,enemy_mp,enemy_maxhp,enemy_atk,enemy_def,Player)
+        player_mp,player_hp = fightBattle(max_dmg,player_dmg,max_def,player_def,max_hp,player_hp,max_mp,player_mp,enemy_name,enemy_hp,enemy_mp,enemy_maxhp,enemy_atk,enemy_def)
     else:
         print("Have fun elsewhere!")
         Player == False
