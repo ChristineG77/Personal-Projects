@@ -382,9 +382,9 @@ def chooseBattle():
             enemy_maxhp = enemy_hp
             battle = False
             
-        return enemy_name,enemy_atk,enemy_def,enemy_mp,enemy_maxhp,enemy_hp
+    return enemy_name,enemy_atk,enemy_def,enemy_mp,enemy_maxhp,enemy_hp
 
-def fightBattle(max_dmg,player_dmg,max_def,player_def,max_hp,player_hp,max_mp,player_mp,enemy_name,enemy_hp,enemy_mp,enemy_maxhp,enemy_atk,enemy_def,Player,potion_name1,potion_name2):
+def fightBattle(max_dmg,player_dmg,max_def,player_def,max_hp,player_hp,player_mp,enemy_name,enemy_hp,enemy_maxhp,enemy_atk,enemy_def,Player,potion_name1,potion_name2):
     Heal = 5
     healcost = 3
     Barrier = 3
@@ -795,10 +795,10 @@ def fightBattle(max_dmg,player_dmg,max_def,player_def,max_hp,player_hp,max_mp,pl
         Player_choice = input()
         if Player_choice == "Yes" or Player_choice == "yes":
             Player = True
-            return Player
+            return player_hp,player_mp,Player
         else:
             Player = False
-            return Player
+            return player_hp,player_mp,Player
     
 
 
@@ -878,7 +878,11 @@ while Player == True:
             print("You are a Barbarian and have no need for spells and magick!")
             
         enemy_name,enemy_atk,enemy_def,enemy_mp,enemy_maxhp,enemy_hp = chooseBattle()
-        player_mp,player_hp = fightBattle(max_dmg,player_dmg,max_def,player_def,max_hp,player_hp,max_mp,player_mp,enemy_name,enemy_hp,enemy_mp,enemy_maxhp,enemy_atk,enemy_def)
+        player_mp,player_hp,Player = fightBattle(max_dmg,player_dmg,max_def,player_def,max_hp,player_hp,player_mp,enemy_name,enemy_hp,enemy_maxhp,enemy_atk,enemy_def,potion_name1,potion_name2,Player)
+        enemy_name,enemy_atk,enemy_def,enemy_mp,enemy_maxhp,enemy_hp = chooseBattle()
+        player_mp,player_hp = fightBattle(max_dmg,player_dmg,max_def,player_def,max_hp,player_hp,player_mp,enemy_name,enemy_hp,enemy_maxhp,enemy_atk,enemy_def,potion_name1,potion_name2,Player)
+        enemy_name,enemy_atk,enemy_def,enemy_mp,enemy_maxhp,enemy_hp = chooseBattle()
+        player_mp,player_hp = fightBattle(max_dmg,player_dmg,max_def,player_def,max_hp,player_hp,player_mp,enemy_name,enemy_hp,enemy_maxhp,enemy_atk,enemy_def,potion_name1,potion_name2,Player)        
     else:
         print("Have fun elsewhere!")
         Player = False
