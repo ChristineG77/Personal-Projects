@@ -225,7 +225,7 @@ def openShop(coin):
             Item3 = 2
             if coin < (potion_prices[Item3]):
                 print("Shop Owner:'You don't have enough gold for this item!'")
-                armor_select = False
+                potion1_select = False
             else:
                 coin = (coin-(potion_prices[Item3]))
                 print("You have",coin,"left in your coinpurse.")
@@ -786,7 +786,7 @@ def fightBattle(max_dmg,player_dmg,max_def,player_def,max_hp,player_hp,player_mp
     if enemy_hp == 0 or enemy_hp < 0:
         print("You have defeated the",enemy_name,"! Continue onward through the next hallway!")
         #Player = False
-        return player_mp,player_hp
+        return player_mp,player_hp,Player
     #make another method to call when you die
     else:
         print("You have perished!")
@@ -795,10 +795,10 @@ def fightBattle(max_dmg,player_dmg,max_def,player_def,max_hp,player_hp,player_mp
         Player_choice = input()
         if Player_choice == "Yes" or Player_choice == "yes":
             Player = True
-            return player_hp,player_mp,Player
+            return player_hp,player_mp,Player == True
         else:
             Player = False
-            return player_hp,player_mp,Player
+            return player_hp,player_mp,Player==False
     
 
 
@@ -880,9 +880,9 @@ while Player == True:
         enemy_name,enemy_atk,enemy_def,enemy_mp,enemy_maxhp,enemy_hp = chooseBattle()
         player_mp,player_hp,Player = fightBattle(max_dmg,player_dmg,max_def,player_def,max_hp,player_hp,player_mp,enemy_name,enemy_hp,enemy_maxhp,enemy_atk,enemy_def,potion_name1,potion_name2,Player)
         enemy_name,enemy_atk,enemy_def,enemy_mp,enemy_maxhp,enemy_hp = chooseBattle()
-        player_mp,player_hp = fightBattle(max_dmg,player_dmg,max_def,player_def,max_hp,player_hp,player_mp,enemy_name,enemy_hp,enemy_maxhp,enemy_atk,enemy_def,potion_name1,potion_name2,Player)
+        player_mp,player_hp,Player = fightBattle(max_dmg,player_dmg,max_def,player_def,max_hp,player_hp,player_mp,enemy_name,enemy_hp,enemy_maxhp,enemy_atk,enemy_def,potion_name1,potion_name2,Player)
         enemy_name,enemy_atk,enemy_def,enemy_mp,enemy_maxhp,enemy_hp = chooseBattle()
-        player_mp,player_hp = fightBattle(max_dmg,player_dmg,max_def,player_def,max_hp,player_hp,player_mp,enemy_name,enemy_hp,enemy_maxhp,enemy_atk,enemy_def,potion_name1,potion_name2,Player)        
+        player_mp,player_hp,Player = fightBattle(max_dmg,player_dmg,max_def,player_def,max_hp,player_hp,player_mp,enemy_name,enemy_hp,enemy_maxhp,enemy_atk,enemy_def,potion_name1,potion_name2,Player)        
     else:
         print("Have fun elsewhere!")
         Player = False
