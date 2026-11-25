@@ -384,6 +384,18 @@ def chooseBattle():
             
     return enemy_name,enemy_atk,enemy_def,enemy_mp,enemy_maxhp,enemy_hp
 
+def bossBattle():
+    print("*"*30)
+    print("You see a King Slime wobbling in the center of the room!")
+    enemy = Enemies[4]
+    enemy_name = Enemy[4]
+    enemy_hp = enemy['HP']
+    enemy_atk = enemy['ATK']
+    enemy_def = enemy['DEF']
+    enemy_mp = enemy['MP']
+    enemy_maxhp = enemy_hp
+    return enemy_name,enemy_atk,enemy_def,enemy_mp,enemy_maxhp,enemy_hp
+
 def fightBattle(max_dmg,player_dmg,max_def,player_def,max_hp,player_hp,player_mp,enemy_name,enemy_hp,enemy_maxhp,enemy_atk,enemy_def,Player,potion_name1,potion_name2):
     Heal = 5
     healcost = 3
@@ -749,9 +761,9 @@ def fightBattle(max_dmg,player_dmg,max_def,player_def,max_hp,player_hp,player_mp
                 print("-"*40)
                 print("You have a",potion_name2,"to use.")
 
-                print("Would you like to use this potion?: (y/n)")
+                print("Would you like to use this potion?: (Yes/No)")
                 potion_use = input()
-                if potion_use == "Y" or potion_use == "y":
+                if potion_use == "Yes" or potion_use == "yes":
                     if potion_name2 == potions[0]:
                         print("You uncap the potion and tip it back, it closes your wounds and helps you feel re-energized! It also tastes like cherries!")
                         player_hp = player_hp + potion_effect[0]
@@ -783,6 +795,7 @@ def fightBattle(max_dmg,player_dmg,max_def,player_def,max_hp,player_hp,player_mp
             elif potion_name1 == "" and potion_name2 == "":
                 print("You don't have any potions to use. Please pick something else.")
                 print("-"*40)
+<<<<<<< HEAD
     if enemy_hp == 0 or enemy_hp < 0:
         print("You have defeated the",enemy_name,"! Continue onward through the next hallway!")
         #Player = False
@@ -799,8 +812,38 @@ def fightBattle(max_dmg,player_dmg,max_def,player_def,max_hp,player_hp,player_mp
         else:
             Player = False
             return player_hp,player_mp,Player==False
+=======
+    if enemy_name == Enemy[4]:
+        if enemy_hp == 0 or enemy_hp < 0:
+            print("*"*30)
+            print("You have defeated the",enemy_name,"! As it's body melts away\nYou find a treasure chest and exit the dungeon with your spoils!")
+            print("*"*30)
+            #Player = False
+            return player_mp,player_hp
+        #make another method to call when you die
+        else:
+            youDead(player_hp,Player)
+    else:    
+        if enemy_hp == 0 or enemy_hp < 0:
+            print("You have defeated the",enemy_name,"! Continue onward through the next hallway!")
+            #Player = False
+            return player_mp,player_hp
+        #make another method to call when you die
+        else:
+            youDead(player_hp,Player)
+>>>>>>> a229c09 (potions are still a probelm but the boss battle is in)
     
-
+def youDead(player_hp,Player):
+    print("You have perished!")
+    print()
+    print("Would you like to try this adventure from the beginning? (Yes/No): ")
+    Player_choice = input()
+    if Player_choice == "Yes" or Player_choice == "yes":
+        Player = True
+        return player_hp,Player
+    else:
+        Player = False
+        return player_hp,Player
 
 Player = bool
 Player = True
@@ -852,12 +895,12 @@ while Player == True:
 
             #to get values back from a function you need to return the variables then set those variables equal to the variables as you can see below
             potion_slot1,potion_slot2,potion_name1,potion_name2,weapon_name,armor_name,weapon_dmg,armor_def = openShop(coin)
-            print ("You have",potion_slot1,potion_slot2,potion_name1,potion_name2,weapon_name,armor_name,weapon_dmg,armor_def)
             decision = input("Would you like to go back and restart? Yes or No? ")
             if decision == "Yes":
                 decision = 1
             else:
                 print("Lets head into the dungeon")
+                
         max_dmg = weapon_dmg + stats['ATK']
         player_dmg = weapon_dmg + stats['ATK']
         max_def = armor_def + stats['DEF']
@@ -878,11 +921,19 @@ while Player == True:
             print("You are a Barbarian and have no need for spells and magick!")
             
         enemy_name,enemy_atk,enemy_def,enemy_mp,enemy_maxhp,enemy_hp = chooseBattle()
-        player_mp,player_hp,Player = fightBattle(max_dmg,player_dmg,max_def,player_def,max_hp,player_hp,player_mp,enemy_name,enemy_hp,enemy_maxhp,enemy_atk,enemy_def,potion_name1,potion_name2,Player)
+        player_mp,player_hp= fightBattle(max_dmg,player_dmg,max_def,player_def,max_hp,player_hp,player_mp,enemy_name,enemy_hp,enemy_maxhp,enemy_atk,enemy_def,potion_name1,potion_name2,Player)
         enemy_name,enemy_atk,enemy_def,enemy_mp,enemy_maxhp,enemy_hp = chooseBattle()
+<<<<<<< HEAD
         player_mp,player_hp,Player = fightBattle(max_dmg,player_dmg,max_def,player_def,max_hp,player_hp,player_mp,enemy_name,enemy_hp,enemy_maxhp,enemy_atk,enemy_def,potion_name1,potion_name2,Player)
         enemy_name,enemy_atk,enemy_def,enemy_mp,enemy_maxhp,enemy_hp = chooseBattle()
         player_mp,player_hp,Player = fightBattle(max_dmg,player_dmg,max_def,player_def,max_hp,player_hp,player_mp,enemy_name,enemy_hp,enemy_maxhp,enemy_atk,enemy_def,potion_name1,potion_name2,Player)        
+=======
+        player_mp,player_hp= fightBattle(max_dmg,player_dmg,max_def,player_def,max_hp,player_hp,player_mp,enemy_name,enemy_hp,enemy_maxhp,enemy_atk,enemy_def,potion_name1,potion_name2,Player)
+        enemy_name,enemy_atk,enemy_def,enemy_mp,enemy_maxhp,enemy_hp = chooseBattle()
+        player_mp,player_hp= fightBattle(max_dmg,player_dmg,max_def,player_def,max_hp,player_hp,player_mp,enemy_name,enemy_hp,enemy_maxhp,enemy_atk,enemy_def,potion_name1,potion_name2,Player)
+        enemy_name,enemy_atk,enemy_def,enemy_mp,enemy_maxhp,enemy_hp = bossBattle()
+        Player = fightBattle(max_dmg,player_dmg,max_def,player_def,max_hp,player_hp,player_mp,enemy_name,enemy_hp,enemy_maxhp,enemy_atk,enemy_def,potion_name1,potion_name2,Player)        
+>>>>>>> a229c09 (potions are still a probelm but the boss battle is in)
     else:
         print("Have fun elsewhere!")
         Player = False
