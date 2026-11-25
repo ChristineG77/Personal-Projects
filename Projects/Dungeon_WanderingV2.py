@@ -795,7 +795,7 @@ def fightBattle(max_dmg,player_dmg,max_def,player_def,max_hp,player_hp,player_mp
             elif potion_name1 == "" and potion_name2 == "":
                 print("You don't have any potions to use. Please pick something else.")
                 print("-"*40)
-<<<<<<< HEAD
+
     if enemy_hp == 0 or enemy_hp < 0:
         print("You have defeated the",enemy_name,"! Continue onward through the next hallway!")
         #Player = False
@@ -812,7 +812,7 @@ def fightBattle(max_dmg,player_dmg,max_def,player_def,max_hp,player_hp,player_mp
         else:
             Player = False
             return player_hp,player_mp,Player==False
-=======
+
     if enemy_name == Enemy[4]:
         if enemy_hp == 0 or enemy_hp < 0:
             print("*"*30)
@@ -831,7 +831,7 @@ def fightBattle(max_dmg,player_dmg,max_def,player_def,max_hp,player_hp,player_mp
         #make another method to call when you die
         else:
             youDead(player_hp,Player)
->>>>>>> a229c09 (potions are still a probelm but the boss battle is in)
+
     
 def youDead(player_hp,Player):
     print("You have perished!")
@@ -923,17 +923,14 @@ while Player == True:
         enemy_name,enemy_atk,enemy_def,enemy_mp,enemy_maxhp,enemy_hp = chooseBattle()
         player_mp,player_hp= fightBattle(max_dmg,player_dmg,max_def,player_def,max_hp,player_hp,player_mp,enemy_name,enemy_hp,enemy_maxhp,enemy_atk,enemy_def,potion_name1,potion_name2,Player)
         enemy_name,enemy_atk,enemy_def,enemy_mp,enemy_maxhp,enemy_hp = chooseBattle()
-<<<<<<< HEAD
         player_mp,player_hp,Player = fightBattle(max_dmg,player_dmg,max_def,player_def,max_hp,player_hp,player_mp,enemy_name,enemy_hp,enemy_maxhp,enemy_atk,enemy_def,potion_name1,potion_name2,Player)
         enemy_name,enemy_atk,enemy_def,enemy_mp,enemy_maxhp,enemy_hp = chooseBattle()
         player_mp,player_hp,Player = fightBattle(max_dmg,player_dmg,max_def,player_def,max_hp,player_hp,player_mp,enemy_name,enemy_hp,enemy_maxhp,enemy_atk,enemy_def,potion_name1,potion_name2,Player)        
-=======
         player_mp,player_hp= fightBattle(max_dmg,player_dmg,max_def,player_def,max_hp,player_hp,player_mp,enemy_name,enemy_hp,enemy_maxhp,enemy_atk,enemy_def,potion_name1,potion_name2,Player)
         enemy_name,enemy_atk,enemy_def,enemy_mp,enemy_maxhp,enemy_hp = chooseBattle()
         player_mp,player_hp= fightBattle(max_dmg,player_dmg,max_def,player_def,max_hp,player_hp,player_mp,enemy_name,enemy_hp,enemy_maxhp,enemy_atk,enemy_def,potion_name1,potion_name2,Player)
         enemy_name,enemy_atk,enemy_def,enemy_mp,enemy_maxhp,enemy_hp = bossBattle()
         Player = fightBattle(max_dmg,player_dmg,max_def,player_def,max_hp,player_hp,player_mp,enemy_name,enemy_hp,enemy_maxhp,enemy_atk,enemy_def,potion_name1,potion_name2,Player)        
->>>>>>> a229c09 (potions are still a probelm but the boss battle is in)
     else:
         print("Have fun elsewhere!")
         Player = False
